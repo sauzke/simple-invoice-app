@@ -9,3 +9,5 @@ C:\Users\Jimmy\Desktop\formApp\formApp\obj\Debug\formApp.Properties.Resources.re
 C:\Users\Jimmy\Desktop\formApp\formApp\obj\Debug\formApp.csproj.GenerateResource.Cache
 C:\Users\Jimmy\Desktop\formApp\formApp\obj\Debug\formApp.exe
 C:\Users\Jimmy\Desktop\formApp\formApp\obj\Debug\formApp.pdb
+C:\Users\Jimmy\Desktop\formApp\formApp\bin\Debug\itextsharp.dll
+C:\Users\Jimmy\Desktop\formApp\formApp\bin\Debug\itextsharp.xml

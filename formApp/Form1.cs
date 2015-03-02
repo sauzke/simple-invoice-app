@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using iTextSharp.text;
+using System.Linq;
 
 namespace formApp
 {
@@ -17,12 +19,9 @@ namespace formApp
             InitializeComponent();
             invoiceTimePicker.CustomFormat = "MM/dd/yyyy   hh:mm tt";
 
-            // Load invoices and customers from database
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
+            // Todo:
+            // invoiceTimePicker take system time on reload
+            // Load invoices and customers from database            
         }
     }
 }
