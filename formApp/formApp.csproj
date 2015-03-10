@@ -63,21 +63,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="addServiceDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="addServiceDialog.Designer.cs">
+      <DependentUpon>addServiceDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DatabaseDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="InvoiceApp.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="InvoiceApp.Designer.cs">
+      <DependentUpon>InvoiceApp.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="addServiceDialog.resx">
+      <DependentUpon>addServiceDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InvoiceApp.resx">
+      <DependentUpon>InvoiceApp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

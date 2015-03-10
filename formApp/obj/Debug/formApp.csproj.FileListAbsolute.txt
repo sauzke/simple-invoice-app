@@ -21,6 +21,7 @@ C:\Users\a00914567\Desktop\simple-invoice-app\formApp\bin\Debug\formApp.pdb
 C:\Users\a00914567\Desktop\simple-invoice-app\formApp\bin\Debug\itextsharp.dll
 C:\Users\a00914567\Desktop\simple-invoice-app\formApp\bin\Debug\itextsharp.xml
 C:\Users\a00914567\Desktop\simple-invoice-app\formApp\obj\Debug\formApp.csprojResolveAssemblyReference.cache
-C:\Users\a00914567\Desktop\simple-invoice-app\formApp\obj\Debug\formApp.Form1.resources
 C:\Users\a00914567\Desktop\simple-invoice-app\formApp\obj\Debug\formApp.Properties.Resources.resources
 C:\Users\a00914567\Desktop\simple-invoice-app\formApp\obj\Debug\formApp.csproj.GenerateResource.Cache
+C:\Users\a00914567\Desktop\simple-invoice-app\formApp\obj\Debug\formApp.addServiceDialog.resources
+C:\Users\a00914567\Desktop\simple-invoice-app\formApp\obj\Debug\formApp.InvoiceApp.resources

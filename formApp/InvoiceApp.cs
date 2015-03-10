@@ -12,9 +12,9 @@ using System.Linq;
 
 namespace formApp
 {
-    public partial class Form1 : Form
+    public partial class InvoiceApp : Form
     {
-        public Form1()
+        public InvoiceApp()
         {
             InitializeComponent();
             invoiceTimePicker.CustomFormat = "MM/dd/yyyy   hh:mm tt";
@@ -32,6 +32,12 @@ namespace formApp
             this.invoiceTableAdapter.Fill(this.applicationDatabase.Invoice);
             this.customerTableAdapter.Fill(this.applicationDatabase.Customer);
 
+        }
+
+        private void addServiceButton_Click(object sender, EventArgs e)
+        {
+            addServiceDialog addServiceDlg = new addServiceDialog();
+            addServiceDlg.Show();
         }
     }
 }
