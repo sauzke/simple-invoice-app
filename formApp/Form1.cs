@@ -18,10 +18,20 @@ namespace formApp
         {
             InitializeComponent();
             invoiceTimePicker.CustomFormat = "MM/dd/yyyy   hh:mm tt";
+            
 
+            
             // Todo:
             // invoiceTimePicker take system time on reload
             // Load invoices and customers from database            
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'applicationDatabase.Invoice' table. You can move, or remove it, as needed.
+            this.invoiceTableAdapter.Fill(this.applicationDatabase.Invoice);
+            this.customerTableAdapter.Fill(this.applicationDatabase.Customer);
+
         }
     }
 }
