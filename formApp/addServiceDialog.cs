@@ -23,5 +23,22 @@ namespace formApp
             this.productTableAdapter.Fill(this.applicationDatabase.Product);
 
         }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
+
+        private void addServiceButton_Click(object sender, EventArgs e)
+        {
+            if (serviceDirectoryDataGridView.SelectedRows != null)
+            {
+                for (int rowCount = serviceDirectoryDataGridView.SelectedRows.Count; rowCount >= 0; rowCount--)
+                {
+                    debugLabel.Text = serviceDirectoryDataGridView.SelectedRows[0].Cells[1].Value.ToString();
+                    listDataGridView.Rows.Add(serviceDirectoryDataGridView.SelectedRows[rowCount]);
+                }
+            }
+        }
     }
 }

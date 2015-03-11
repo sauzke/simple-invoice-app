@@ -1,10 +1,7 @@
 C:\Users\Jimmy\Desktop\formApp\formApp\bin\Debug\formApp.exe.config
-C:\Users\Jimmy\Desktop\formApp\formApp\bin\Debug\Database1.mdf
-C:\Users\Jimmy\Desktop\formApp\formApp\bin\Debug\Database1_log.ldf
 C:\Users\Jimmy\Desktop\formApp\formApp\bin\Debug\formApp.exe
 C:\Users\Jimmy\Desktop\formApp\formApp\bin\Debug\formApp.pdb
 C:\Users\Jimmy\Desktop\formApp\formApp\obj\Debug\formApp.csprojResolveAssemblyReference.cache
-C:\Users\Jimmy\Desktop\formApp\formApp\obj\Debug\formApp.Form1.resources
 C:\Users\Jimmy\Desktop\formApp\formApp\obj\Debug\formApp.Properties.Resources.resources
 C:\Users\Jimmy\Desktop\formApp\formApp\obj\Debug\formApp.csproj.GenerateResource.Cache
 C:\Users\Jimmy\Desktop\formApp\formApp\obj\Debug\formApp.exe
@@ -25,3 +22,7 @@ C:\Users\a00914567\Desktop\simple-invoice-app\formApp\obj\Debug\formApp.Properti
 C:\Users\a00914567\Desktop\simple-invoice-app\formApp\obj\Debug\formApp.csproj.GenerateResource.Cache
 C:\Users\a00914567\Desktop\simple-invoice-app\formApp\obj\Debug\formApp.addServiceDialog.resources
 C:\Users\a00914567\Desktop\simple-invoice-app\formApp\obj\Debug\formApp.InvoiceApp.resources
+C:\Users\Jimmy\Desktop\formApp\formApp\bin\Debug\Database.mdf
+C:\Users\Jimmy\Desktop\formApp\formApp\bin\Debug\Database_log.ldf
+C:\Users\Jimmy\Desktop\formApp\formApp\obj\Debug\formApp.addServiceDialog.resources
+C:\Users\Jimmy\Desktop\formApp\formApp\obj\Debug\formApp.InvoiceApp.resources
