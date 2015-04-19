@@ -18,8 +18,7 @@ namespace formApp
         }
 
         private void addServiceDialog_Load(object sender, EventArgs e)
-        {
-            // TODO: This line of code loads data into the 'applicationDatabase.Product' table. You can move, or remove it, as needed.
+        {            
             this.productTableAdapter.Fill(this.applicationDatabase.Product);
 
         }
