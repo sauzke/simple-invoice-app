@@ -63,7 +63,7 @@ namespace formApp
             }
             catch (Exception e)
             {
-                MessageBox.Show("got exception son", "message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Console.WriteLine(e.StackTrace);
             }
 
             return id;
@@ -75,7 +75,39 @@ namespace formApp
             addServiceDlg.Show();
         }
 
-        private void invoiceDataGridView_SelectionChanged(object sender, EventArgs e)
+        private void invoiceSaveButton_Click(object sender, EventArgs e)
+        {
+            if (InvoiceTextBoxCustomerId.Text == null || InvoiceTextBoxCustomerId.Text == "")
+            {
+                bool errFlag = false;
+                String errMsg = "please enter:\n";
+
+                if (invoiceTextBoxFirstName.Text == null || invoiceTextBoxFirstName.Text == "")
+                {
+                    errFlag = true;
+                    errMsg += "First Name\n";
+                }
+                if (invoiceTextBoxLastName.Text == null || invoiceTextBoxLastName.Text == "")
+                {
+                    errFlag = true;
+                    errMsg += "Last Name\n";
+                }
+                if (errFlag)
+                {
+                    MessageBox.Show(errMsg, "Invalid input", MessageBoxButtons.OK, MessageBoxIcon.Error);                    
+                }
+                if (!errFlag)
+                {
+
+                }
+            }
+            else
+            {
+
+            }
+        }
+
+        private void invoiceClearButton_Click(object sender, EventArgs e)
         {
 
         }
