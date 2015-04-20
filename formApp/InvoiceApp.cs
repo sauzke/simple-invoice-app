@@ -98,18 +98,19 @@ namespace formApp
                 }
                 if (!errFlag)
                 {
-
+                    // todo: no error, implement accessing db and inser new inovice 
+                    // also add new customer to table
                 }
             }
             else
             {
-
+                // todo: implement accessing DB and insert invoice with valid custID
             }
         }
 
         private void invoiceClearButton_Click(object sender, EventArgs e)
         {
-
+            // todo: implement clear button
         }
     }
 }
