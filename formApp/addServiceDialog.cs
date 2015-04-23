@@ -12,9 +12,12 @@ namespace formApp
 {
     public partial class addServiceDialog : Form
     {
+        List<ServiceItem> list;
         public addServiceDialog()
         {
             InitializeComponent();
+            list = new List<ServiceItem>();
+            listDataGridView.DataSource = list;
         }
 
         private void addServiceDialog_Load(object sender, EventArgs e)
@@ -32,11 +35,19 @@ namespace formApp
         {
             if (serviceDirectoryDataGridView.SelectedRows != null)
             {
-                for (int rowCount = serviceDirectoryDataGridView.SelectedRows.Count; rowCount >= 0; rowCount--)
+                debugLabel.Text = "";
+                DataGridViewSelectedRowCollection collection = serviceDirectoryDataGridView.SelectedRows;
+                
+
+                for (int i = collection.Count - 1; i >= 0; i--)
                 {
-                    debugLabel.Text = serviceDirectoryDataGridView.SelectedRows[0].Cells[1].Value.ToString();
-                    listDataGridView.Rows.Add(serviceDirectoryDataGridView.SelectedRows[rowCount]);
+                    debugLabel.Text += serviceDirectoryDataGridView.SelectedRows[i].Cells[1].Value.ToString();
+                    ServiceItem temp = new ServiceItem(Convert.ToInt64(serviceDirectoryDataGridView.SelectedRows[i].Cells[0].Value.ToString()), serviceDirectoryDataGridView.SelectedRows[i].Cells[1].Value.ToString(), Convert.ToDouble(serviceDirectoryDataGridView.SelectedRows[i].Cells[2].Value.ToString()));
+                    list.Add(temp);
                 }
+
+                listDataGridView.DataSource = null;
+                listDataGridView.DataSource = list;
             }
         }
     }

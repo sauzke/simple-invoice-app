@@ -30,6 +30,8 @@ namespace formApp
             items.SubItems.Add("0.0");
             serviceListView.Items.Add(items);
             
+            
+
             // Todo:
             // invoiceTimePicker take system time on reload   
 
@@ -77,17 +79,17 @@ namespace formApp
 
         private void invoiceSaveButton_Click(object sender, EventArgs e)
         {
-            if (InvoiceTextBoxCustomerId.Text == null || InvoiceTextBoxCustomerId.Text == "")
+            if (String.IsNullOrWhiteSpace(InvoiceTextBoxCustomerId.Text))
             {
                 bool errFlag = false;
                 String errMsg = "please enter:\n";
 
-                if (invoiceTextBoxFirstName.Text == null || invoiceTextBoxFirstName.Text == "")
+                if (String.IsNullOrWhiteSpace(invoiceTextBoxFirstName.Text))
                 {
                     errFlag = true;
                     errMsg += "First Name\n";
                 }
-                if (invoiceTextBoxLastName.Text == null || invoiceTextBoxLastName.Text == "")
+                if (String.IsNullOrWhiteSpace(invoiceTextBoxLastName.Text))
                 {
                     errFlag = true;
                     errMsg += "Last Name\n";
@@ -111,6 +113,14 @@ namespace formApp
         private void invoiceClearButton_Click(object sender, EventArgs e)
         {
             // todo: implement clear button
+        }
+
+        private void mainTabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (mainTabControl.SelectedIndex == 0)
+            {
+                invoiceTimePicker.Value = DateTime.Now;
+            }
         }
     }
 }

@@ -40,9 +40,8 @@
             this.button4 = new System.Windows.Forms.Button();
             this.productTableAdapter = new formApp.ApplicationDatabaseTableAdapters.ProductTableAdapter();
             this.listDataGridView = new System.Windows.Forms.DataGridView();
-            this.addedDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.debugLabel = new System.Windows.Forms.Label();
-            this.productIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.productDescriptionsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.serviceDirectoryDataGridView)).BeginInit();
@@ -59,7 +58,7 @@
             this.serviceDirectoryDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.serviceDirectoryDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.serviceDirectoryDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.productIDDataGridViewTextBoxColumn,
+            this.ProductId,
             this.productDescriptionsDataGridViewTextBoxColumn,
             this.priceDataGridViewTextBoxColumn});
             this.serviceDirectoryDataGridView.DataSource = this.productBindingSource;
@@ -151,8 +150,6 @@
             this.listDataGridView.AllowUserToDeleteRows = false;
             this.listDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.listDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.listDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.addedDesc});
             this.listDataGridView.Location = new System.Drawing.Point(453, 29);
             this.listDataGridView.Name = "listDataGridView";
             this.listDataGridView.ReadOnly = true;
@@ -160,13 +157,6 @@
             this.listDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.listDataGridView.Size = new System.Drawing.Size(262, 486);
             this.listDataGridView.TabIndex = 8;
-            // 
-            // addedDesc
-            // 
-            this.addedDesc.FillWeight = 149.2386F;
-            this.addedDesc.HeaderText = "Service Description";
-            this.addedDesc.Name = "addedDesc";
-            this.addedDesc.ReadOnly = true;
             // 
             // debugLabel
             // 
@@ -177,12 +167,12 @@
             this.debugLabel.TabIndex = 10;
             this.debugLabel.Text = "label4";
             // 
-            // productIDDataGridViewTextBoxColumn
+            // ProductId
             // 
-            this.productIDDataGridViewTextBoxColumn.DataPropertyName = "ProductID";
-            this.productIDDataGridViewTextBoxColumn.HeaderText = "ProductID";
-            this.productIDDataGridViewTextBoxColumn.Name = "productIDDataGridViewTextBoxColumn";
-            this.productIDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.ProductId.DataPropertyName = "ProductId";
+            this.ProductId.HeaderText = "ProductId";
+            this.ProductId.Name = "ProductId";
+            this.ProductId.ReadOnly = true;
             // 
             // productDescriptionsDataGridViewTextBoxColumn
             // 
@@ -239,10 +229,10 @@
         private System.Windows.Forms.BindingSource productBindingSource;
         private ApplicationDatabaseTableAdapters.ProductTableAdapter productTableAdapter;
         private System.Windows.Forms.DataGridView listDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn addedDesc;
         private System.Windows.Forms.DataGridViewTextBoxColumn productDescriptionDataGridViewTextBoxColumn;
         private System.Windows.Forms.Label debugLabel;
         private System.Windows.Forms.DataGridViewTextBoxColumn productIDDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProductId;
         private System.Windows.Forms.DataGridViewTextBoxColumn productDescriptionsDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn priceDataGridViewTextBoxColumn;
     }
