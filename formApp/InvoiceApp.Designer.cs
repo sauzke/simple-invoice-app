@@ -60,8 +60,7 @@
             this.serviceListView = new System.Windows.Forms.ListView();
             this.discHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.priceHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.qtyHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.totalHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.idHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label3 = new System.Windows.Forms.Label();
             this.invoiceTextBoxInvoiceNumber = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -196,10 +195,10 @@
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.invoiceDataGridView);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Location = new System.Drawing.Point(4, 24);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(313, 524);
+            this.tabPage4.Size = new System.Drawing.Size(313, 522);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Past Invoices";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -225,7 +224,7 @@
             this.invoiceDataGridView.Name = "invoiceDataGridView";
             this.invoiceDataGridView.ReadOnly = true;
             this.invoiceDataGridView.RowHeadersVisible = false;
-            this.invoiceDataGridView.Size = new System.Drawing.Size(307, 518);
+            this.invoiceDataGridView.Size = new System.Drawing.Size(307, 516);
             this.invoiceDataGridView.TabIndex = 0;
             // 
             // InvoiceID
@@ -384,9 +383,9 @@
             // 
             this.serviceListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.discHeader,
-            this.priceHeader,
-            this.qtyHeader,
-            this.totalHeader});
+            this.idHeader,
+            this.priceHeader});
+            this.serviceListView.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.serviceListView.Location = new System.Drawing.Point(11, 160);
             this.serviceListView.Name = "serviceListView";
             this.serviceListView.Size = new System.Drawing.Size(620, 302);
@@ -397,21 +396,17 @@
             // discHeader
             // 
             this.discHeader.Text = "Discription";
-            this.discHeader.Width = 396;
+            this.discHeader.Width = 456;
             // 
             // priceHeader
             // 
             this.priceHeader.Text = "Price";
             this.priceHeader.Width = 80;
             // 
-            // qtyHeader
+            // idHeader
             // 
-            this.qtyHeader.Text = "Qty";
-            // 
-            // totalHeader
-            // 
-            this.totalHeader.Text = "Total";
-            this.totalHeader.Width = 80;
+            this.idHeader.Text = "Item ID";
+            this.idHeader.Width = 80;
             // 
             // label3
             // 
@@ -481,10 +476,10 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(639, 528);
+            this.tabPage2.Size = new System.Drawing.Size(639, 526);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Preview";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -513,6 +508,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(981, 557);
             this.Controls.Add(this.splitContainer1);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.Name = "InvoiceApp";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -568,8 +564,7 @@
         private System.Windows.Forms.ListView serviceListView;
         private System.Windows.Forms.ColumnHeader discHeader;
         private System.Windows.Forms.ColumnHeader priceHeader;
-        private System.Windows.Forms.ColumnHeader qtyHeader;
-        private System.Windows.Forms.ColumnHeader totalHeader;
+        private System.Windows.Forms.ColumnHeader idHeader;
         private System.Windows.Forms.BindingSource invoiceBindingSource;
         private ApplicationDatabaseTableAdapters.InvoiceTableAdapter invoiceTableAdapter;
         private System.Windows.Forms.BindingSource fKInvoiceCustome47DBAE45BindingSource;

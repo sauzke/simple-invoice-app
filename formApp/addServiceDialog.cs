@@ -12,12 +12,20 @@ namespace formApp
 {
     public partial class addServiceDialog : Form
     {
-        List<ServiceItem> list;
+        private List<ServiceItem> serviceList;
+
         public addServiceDialog()
         {
             InitializeComponent();
-            list = new List<ServiceItem>();
-            listDataGridView.DataSource = list;
+            serviceList = new List<ServiceItem>();
+            listDataGridView.DataSource = serviceList;
+        }
+
+        public List<ServiceItem> ServiceList {
+            get
+            {
+                return this.serviceList;
+            }
         }
 
         private void addServiceDialog_Load(object sender, EventArgs e)
@@ -28,7 +36,8 @@ namespace formApp
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
 
         private void addServiceButton_Click(object sender, EventArgs e)
@@ -43,12 +52,18 @@ namespace formApp
                 {
                     debugLabel.Text += serviceDirectoryDataGridView.SelectedRows[i].Cells[1].Value.ToString();
                     ServiceItem temp = new ServiceItem(Convert.ToInt64(serviceDirectoryDataGridView.SelectedRows[i].Cells[0].Value.ToString()), serviceDirectoryDataGridView.SelectedRows[i].Cells[1].Value.ToString(), Convert.ToDouble(serviceDirectoryDataGridView.SelectedRows[i].Cells[2].Value.ToString()));
-                    list.Add(temp);
+                    serviceList.Add(temp);
                 }
 
                 listDataGridView.DataSource = null;
-                listDataGridView.DataSource = list;
+                listDataGridView.DataSource = serviceList;
             }
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }

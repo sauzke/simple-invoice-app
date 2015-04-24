@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace formApp
 {
-    class ServiceItem
+    public class ServiceItem
     {
         private long id;
         private String description;
@@ -55,11 +55,6 @@ namespace formApp
             {
                 this.price = value;
             }
-        }
-
-        public String ToString()
-        {
-            return this.id + "," + this.description + "," + this.price;
         }
     }
 }

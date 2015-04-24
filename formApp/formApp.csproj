@@ -72,7 +72,6 @@
     <Compile Include="addServiceDialog.Designer.cs">
       <DependentUpon>addServiceDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseAccessObject.cs" />
     <Compile Include="DatabaseDataSet.cs">
       <DependentUpon>DatabaseDataSet.xsd</DependentUpon>
       <SubType>Component</SubType>

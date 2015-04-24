@@ -30,6 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.serviceDirectoryDataGridView = new System.Windows.Forms.DataGridView();
+            this.ProductId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productDescriptionsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.applicationDatabase = new formApp.ApplicationDatabase();
             this.saveButton = new System.Windows.Forms.Button();
@@ -41,9 +44,6 @@
             this.productTableAdapter = new formApp.ApplicationDatabaseTableAdapters.ProductTableAdapter();
             this.listDataGridView = new System.Windows.Forms.DataGridView();
             this.debugLabel = new System.Windows.Forms.Label();
-            this.ProductId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.productDescriptionsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.serviceDirectoryDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.applicationDatabase)).BeginInit();
@@ -71,6 +71,27 @@
             this.serviceDirectoryDataGridView.Size = new System.Drawing.Size(262, 486);
             this.serviceDirectoryDataGridView.TabIndex = 0;
             // 
+            // ProductId
+            // 
+            this.ProductId.DataPropertyName = "ProductId";
+            this.ProductId.HeaderText = "ProductId";
+            this.ProductId.Name = "ProductId";
+            this.ProductId.ReadOnly = true;
+            // 
+            // productDescriptionsDataGridViewTextBoxColumn
+            // 
+            this.productDescriptionsDataGridViewTextBoxColumn.DataPropertyName = "ProductDescriptions";
+            this.productDescriptionsDataGridViewTextBoxColumn.HeaderText = "ProductDescriptions";
+            this.productDescriptionsDataGridViewTextBoxColumn.Name = "productDescriptionsDataGridViewTextBoxColumn";
+            this.productDescriptionsDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // priceDataGridViewTextBoxColumn
+            // 
+            this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
+            this.priceDataGridViewTextBoxColumn.HeaderText = "Price";
+            this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
+            this.priceDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // productBindingSource
             // 
             this.productBindingSource.DataMember = "Product";
@@ -89,6 +110,7 @@
             this.saveButton.TabIndex = 2;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // cancelButton
             // 
@@ -167,27 +189,6 @@
             this.debugLabel.TabIndex = 10;
             this.debugLabel.Text = "label4";
             // 
-            // ProductId
-            // 
-            this.ProductId.DataPropertyName = "ProductId";
-            this.ProductId.HeaderText = "ProductId";
-            this.ProductId.Name = "ProductId";
-            this.ProductId.ReadOnly = true;
-            // 
-            // productDescriptionsDataGridViewTextBoxColumn
-            // 
-            this.productDescriptionsDataGridViewTextBoxColumn.DataPropertyName = "ProductDescriptions";
-            this.productDescriptionsDataGridViewTextBoxColumn.HeaderText = "ProductDescriptions";
-            this.productDescriptionsDataGridViewTextBoxColumn.Name = "productDescriptionsDataGridViewTextBoxColumn";
-            this.productDescriptionsDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // priceDataGridViewTextBoxColumn
-            // 
-            this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
-            this.priceDataGridViewTextBoxColumn.HeaderText = "Price";
-            this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
-            this.priceDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
             // addServiceDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -203,6 +204,7 @@
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.serviceDirectoryDataGridView);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "addServiceDialog";
             this.Text = "Add Service";

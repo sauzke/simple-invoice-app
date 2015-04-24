@@ -14,6 +14,7 @@ namespace formApp
     public partial class InvoiceApp : Form
     {
         SqlConnection conn = new SqlConnection(global::formApp.Properties.Settings.Default.DatabaseConnectionString);
+        ListViewItem items = new ListViewItem();
 
         public InvoiceApp()
         {
@@ -21,21 +22,16 @@ namespace formApp
             invoiceTimePicker.CustomFormat = "MM/dd/yyyy   hh:mm tt";
 
             //customerDataGridView.DataSource = customerBindingSource;
-            //invoiceDataGridView.DataSource = invoiceBindingSource;
+            //invoiceDataGridView.DataSource = invoiceBindingSource;         
 
-            ListViewItem items = new ListViewItem();
+            invoiceTextBoxInvoiceNumber.Text = getInvoiceId();
+            
             items.Text = "Subtotal";
-            items.SubItems.Add("");
+            items.Font = new System.Drawing.Font("Microsoft Sans Serif", 8, System.Drawing.FontStyle.Bold); 
+
             items.SubItems.Add("");
             items.SubItems.Add("0.0");
             serviceListView.Items.Add(items);
-            
-            
-
-            // Todo:
-            // invoiceTimePicker take system time on reload   
-
-            invoiceTextBoxInvoiceNumber.Text = getInvoiceId();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -71,10 +67,47 @@ namespace formApp
             return id;
         }
 
+        private void loadList(List<ServiceItem> list)
+        {
+            foreach (ServiceItem serviceItem in list)
+            {
+                ListViewItem items = new ListViewItem();
+                items.Text = serviceItem.Description;
+                items.SubItems.Add(serviceItem.Id+"");
+                items.SubItems.Add(serviceItem.Price+"");
+                serviceListView.Items.Add(items);   
+            }
+            calcSubtotal();
+        }
+
+        private void calcSubtotal()
+        {
+            serviceListView.Items.Remove(items);
+            items.SubItems.RemoveAt(2);
+            double subtotal = 0.0;
+
+            for (int i = 0; i < serviceListView.Items.Count; i++)
+            {
+                subtotal += Convert.ToDouble(serviceListView.Items[i].SubItems[2].Text);
+               // MessageBox.Show(serviceListView.Items[i].SubItems[2].Text, "Invalid input", MessageBoxButtons.OK, MessageBoxIcon.Error);  
+            }
+
+            items.SubItems.Add(subtotal + "");
+            serviceListView.Items.Add(items);
+
+        }
+
         private void addServiceButton_Click(object sender, EventArgs e)
         {
             addServiceDialog addServiceDlg = new addServiceDialog();
-            addServiceDlg.Show();
+            addServiceDlg.ShowDialog();
+
+            if (addServiceDlg.DialogResult == DialogResult.OK)
+            {
+                List<ServiceItem> serviceList = addServiceDlg.ServiceList;
+                loadList(serviceList);
+            }
+            
         }
 
         private void invoiceSaveButton_Click(object sender, EventArgs e)
