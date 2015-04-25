@@ -9,10 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using iTextSharp.text;
 
+// todo: generate .mdf file if missing with all tables
+
 namespace formApp
 {
     public partial class InvoiceApp : Form
     {
+        AutoCompleteStringCollection autoComplete = new AutoCompleteStringCollection();
         SqlConnection conn;
         ListViewItem items;
         List<ServiceItem> serviceList;
@@ -23,17 +26,6 @@ namespace formApp
             conn = new SqlConnection(global::formApp.Properties.Settings.Default.DatabaseConnectionString);
             items = new ListViewItem();
             serviceList = new List<ServiceItem>();
-
-            invoiceTimePicker.CustomFormat = "MM/dd/yyyy   hh:mm tt";    
-
-            invoiceTextBoxInvoiceNumber.Text = getInvoiceId();
-            
-            items.Text = "Subtotal";
-            items.Font = new System.Drawing.Font("Microsoft Sans Serif", 8, System.Drawing.FontStyle.Bold); 
-
-            items.SubItems.Add("");
-            items.SubItems.Add("0.00");
-            serviceListView.Items.Add(items);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -42,6 +34,22 @@ namespace formApp
             this.invoiceTableAdapter.Fill(this.applicationDatabase.Invoice);
             this.customerTableAdapter.Fill(this.applicationDatabase.Customer);
 
+
+            invoiceTimePicker.CustomFormat = "MM/dd/yyyy   hh:mm tt";
+
+            invoiceTextBoxInvoiceNumber.Text = getInvoiceId();
+
+            items.Text = "Subtotal";
+            items.Font = new System.Drawing.Font("Microsoft Sans Serif", 8, System.Drawing.FontStyle.Bold);
+
+            items.SubItems.Add("");
+            items.SubItems.Add("0.00");
+            serviceListView.Items.Add(items);
+
+            invoiceTextBoxFirstName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            invoiceTextBoxFirstName.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            invoiceTextBoxFirstName.AutoCompleteCustomSource = autoComplete;
+            
         }
 
         private String getInvoiceId()
@@ -150,6 +158,8 @@ namespace formApp
             else
             {
                 // todo: implement accessing DB and insert invoice with valid custID
+                // todo: auto complete custID;
+                // todo: check SQLexception for invalid custID
             }
         }
 
@@ -165,7 +175,6 @@ namespace formApp
                 invoiceTextBoxPhone.Clear();
                 invoiceTimePicker.Value = DateTime.Now;
                 calcSubtotal();
-
             }            
         }
 
