@@ -165,6 +165,7 @@ namespace formApp
                 invoiceTextBoxPhone.Clear();
                 invoiceTimePicker.Value = DateTime.Now;
                 calcSubtotal();
+
             }            
         }
 
