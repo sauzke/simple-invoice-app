@@ -21,6 +21,13 @@ namespace formApp
             listDataGridView.DataSource = serviceList;
         }
 
+        public addServiceDialog(List<ServiceItem> items)
+        {
+            InitializeComponent();
+            serviceList = items;
+            listDataGridView.DataSource = serviceList;
+        }
+
         public List<ServiceItem> ServiceList {
             get
             {
@@ -44,13 +51,11 @@ namespace formApp
         {
             if (serviceDirectoryDataGridView.SelectedRows != null)
             {
-                debugLabel.Text = "";
                 DataGridViewSelectedRowCollection collection = serviceDirectoryDataGridView.SelectedRows;
                 
 
                 for (int i = collection.Count - 1; i >= 0; i--)
                 {
-                    debugLabel.Text += serviceDirectoryDataGridView.SelectedRows[i].Cells[1].Value.ToString();
                     ServiceItem temp = new ServiceItem(Convert.ToInt64(serviceDirectoryDataGridView.SelectedRows[i].Cells[0].Value.ToString()), serviceDirectoryDataGridView.SelectedRows[i].Cells[1].Value.ToString(), Convert.ToDouble(serviceDirectoryDataGridView.SelectedRows[i].Cells[2].Value.ToString()));
                     serviceList.Add(temp);
                 }
@@ -58,6 +63,27 @@ namespace formApp
                 listDataGridView.DataSource = null;
                 listDataGridView.DataSource = serviceList;
             }
+        }       
+
+        private void removeServiceButton_Click(object sender, EventArgs e)
+        {
+            if (listDataGridView.SelectedRows != null)
+            {
+                for (int i = 0; i < listDataGridView.SelectedRows.Count; i++)
+                {
+                    long id = (long)listDataGridView.SelectedRows[i].Cells[0].Value;
+                    foreach (ServiceItem temp in serviceList)
+                    {
+                        if (temp.Id == id)
+                        {
+                            serviceList.Remove(temp);
+                            break;
+                        }
+                    }
+                }
+            }
+            listDataGridView.DataSource = null;
+            listDataGridView.DataSource = serviceList;
         }
 
         private void saveButton_Click(object sender, EventArgs e)

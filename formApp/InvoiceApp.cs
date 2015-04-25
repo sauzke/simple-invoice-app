@@ -13,16 +13,18 @@ namespace formApp
 {
     public partial class InvoiceApp : Form
     {
-        SqlConnection conn = new SqlConnection(global::formApp.Properties.Settings.Default.DatabaseConnectionString);
-        ListViewItem items = new ListViewItem();
+        SqlConnection conn;
+        ListViewItem items;
+        List<ServiceItem> serviceList;
 
         public InvoiceApp()
         {
             InitializeComponent();
-            invoiceTimePicker.CustomFormat = "MM/dd/yyyy   hh:mm tt";
+            conn = new SqlConnection(global::formApp.Properties.Settings.Default.DatabaseConnectionString);
+            items = new ListViewItem();
+            serviceList = new List<ServiceItem>();
 
-            //customerDataGridView.DataSource = customerBindingSource;
-            //invoiceDataGridView.DataSource = invoiceBindingSource;         
+            invoiceTimePicker.CustomFormat = "MM/dd/yyyy   hh:mm tt";    
 
             invoiceTextBoxInvoiceNumber.Text = getInvoiceId();
             
@@ -30,7 +32,7 @@ namespace formApp
             items.Font = new System.Drawing.Font("Microsoft Sans Serif", 8, System.Drawing.FontStyle.Bold); 
 
             items.SubItems.Add("");
-            items.SubItems.Add("0.0");
+            items.SubItems.Add("0.00");
             serviceListView.Items.Add(items);
         }
 
@@ -67,9 +69,9 @@ namespace formApp
             return id;
         }
 
-        private void loadList(List<ServiceItem> list)
+        private void loadList()
         {
-            foreach (ServiceItem serviceItem in list)
+            foreach (ServiceItem serviceItem in serviceList)
             {
                 ListViewItem items = new ListViewItem();
                 items.Text = serviceItem.Description;
@@ -89,23 +91,31 @@ namespace formApp
             for (int i = 0; i < serviceListView.Items.Count; i++)
             {
                 subtotal += Convert.ToDouble(serviceListView.Items[i].SubItems[2].Text);
-               // MessageBox.Show(serviceListView.Items[i].SubItems[2].Text, "Invalid input", MessageBoxButtons.OK, MessageBoxIcon.Error);  
             }
 
-            items.SubItems.Add(subtotal + "");
+            items.SubItems.Add(subtotal.ToString("0.00"));
             serviceListView.Items.Add(items);
 
         }
 
         private void addServiceButton_Click(object sender, EventArgs e)
         {
-            addServiceDialog addServiceDlg = new addServiceDialog();
+
+            addServiceDialog addServiceDlg;
+            if(serviceList.Count == 0){
+                addServiceDlg = new addServiceDialog();
+            }
+            else
+            {
+                addServiceDlg = new addServiceDialog(serviceList);
+            }
             addServiceDlg.ShowDialog();
 
             if (addServiceDlg.DialogResult == DialogResult.OK)
             {
-                List<ServiceItem> serviceList = addServiceDlg.ServiceList;
-                loadList(serviceList);
+                serviceList = addServiceDlg.ServiceList;
+                serviceListView.Items.Clear();
+                loadList();
             }
             
         }
@@ -145,7 +155,17 @@ namespace formApp
 
         private void invoiceClearButton_Click(object sender, EventArgs e)
         {
-            // todo: implement clear button
+            if (MessageBox.Show("Are you sure you want to clear the form?", "Clearing form", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                serviceList.Clear();
+                serviceListView.Items.Clear();
+                InvoiceTextBoxCustomerId.Clear();
+                invoiceTextBoxFirstName.Clear();
+                invoiceTextBoxLastName.Clear();
+                invoiceTextBoxPhone.Clear();
+                invoiceTimePicker.Value = DateTime.Now;
+                calcSubtotal();
+            }            
         }
 
         private void mainTabControl_SelectedIndexChanged(object sender, EventArgs e)

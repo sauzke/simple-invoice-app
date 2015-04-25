@@ -40,10 +40,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.addServiceButton = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.removeServiceButton = new System.Windows.Forms.Button();
             this.productTableAdapter = new formApp.ApplicationDatabaseTableAdapters.ProductTableAdapter();
             this.listDataGridView = new System.Windows.Forms.DataGridView();
-            this.debugLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.serviceDirectoryDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.applicationDatabase)).BeginInit();
@@ -153,14 +152,15 @@
             this.addServiceButton.UseVisualStyleBackColor = true;
             this.addServiceButton.Click += new System.EventHandler(this.addServiceButton_Click);
             // 
-            // button4
+            // removeServiceButton
             // 
-            this.button4.Location = new System.Drawing.Point(300, 155);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(131, 34);
-            this.button4.TabIndex = 7;
-            this.button4.Text = "Remove Service";
-            this.button4.UseVisualStyleBackColor = true;
+            this.removeServiceButton.Location = new System.Drawing.Point(300, 155);
+            this.removeServiceButton.Name = "removeServiceButton";
+            this.removeServiceButton.Size = new System.Drawing.Size(131, 34);
+            this.removeServiceButton.TabIndex = 7;
+            this.removeServiceButton.Text = "Remove Service";
+            this.removeServiceButton.UseVisualStyleBackColor = true;
+            this.removeServiceButton.Click += new System.EventHandler(this.removeServiceButton_Click);
             // 
             // productTableAdapter
             // 
@@ -180,24 +180,14 @@
             this.listDataGridView.Size = new System.Drawing.Size(262, 486);
             this.listDataGridView.TabIndex = 8;
             // 
-            // debugLabel
-            // 
-            this.debugLabel.AutoSize = true;
-            this.debugLabel.Location = new System.Drawing.Point(324, 230);
-            this.debugLabel.Name = "debugLabel";
-            this.debugLabel.Size = new System.Drawing.Size(35, 13);
-            this.debugLabel.TabIndex = 10;
-            this.debugLabel.Text = "label4";
-            // 
             // addServiceDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(727, 573);
-            this.Controls.Add(this.debugLabel);
             this.Controls.Add(this.listDataGridView);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.removeServiceButton);
             this.Controls.Add(this.addServiceButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -226,13 +216,12 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button addServiceButton;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button removeServiceButton;
         private ApplicationDatabase applicationDatabase;
         private System.Windows.Forms.BindingSource productBindingSource;
         private ApplicationDatabaseTableAdapters.ProductTableAdapter productTableAdapter;
         private System.Windows.Forms.DataGridView listDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn productDescriptionDataGridViewTextBoxColumn;
-        private System.Windows.Forms.Label debugLabel;
         private System.Windows.Forms.DataGridViewTextBoxColumn productIDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductId;
         private System.Windows.Forms.DataGridViewTextBoxColumn productDescriptionsDataGridViewTextBoxColumn;
