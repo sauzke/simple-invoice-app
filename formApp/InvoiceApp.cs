@@ -15,7 +15,7 @@ namespace formApp
 {
     public partial class InvoiceApp : Form
     {
-        AutoCompleteStringCollection autoComplete = new AutoCompleteStringCollection();
+        AutoCompleteStringCollection autoCompleteID = new AutoCompleteStringCollection();
         SqlConnection conn;
         ListViewItem items;
         List<ServiceItem> serviceList;
@@ -48,7 +48,8 @@ namespace formApp
 
             invoiceTextBoxFirstName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             invoiceTextBoxFirstName.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            invoiceTextBoxFirstName.AutoCompleteCustomSource = autoComplete;
+            invoiceTextBoxFirstName.AutoCompleteCustomSource = autoCompleteID;
+
             
         }
 
