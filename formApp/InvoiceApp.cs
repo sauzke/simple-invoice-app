@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using iTextSharp.text;
+using System.Linq;
 
 // todo: generate .mdf file if missing with all tables
 
@@ -15,7 +16,9 @@ namespace formApp
 {
     public partial class InvoiceApp : Form
     {
-        AutoCompleteStringCollection autoCompleteID = new AutoCompleteStringCollection();
+        AutoCompleteStringCollection autoCompleteFirstName = new AutoCompleteStringCollection();
+        AutoCompleteStringCollection autoCompleteLastName = new AutoCompleteStringCollection();
+        AutoCompleteStringCollection autoCompletePhone = new AutoCompleteStringCollection();
         SqlConnection conn;
         ListViewItem items;
         List<ServiceItem> serviceList;
@@ -30,10 +33,8 @@ namespace formApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'applicationDatabase.Invoice' table. You can move, or remove it, as needed.
             this.invoiceTableAdapter.Fill(this.applicationDatabase.Invoice);
             this.customerTableAdapter.Fill(this.applicationDatabase.Customer);
-
 
             invoiceTimePicker.CustomFormat = "MM/dd/yyyy   hh:mm tt";
 
@@ -46,11 +47,35 @@ namespace formApp
             items.SubItems.Add("0.00");
             serviceListView.Items.Add(items);
 
+            List<String> firstNameList = new List<String>();
+            List<String> lastNameList = new List<String>();
+            List<String> phoneList = new List<String>();
+
+            var query = from customer in this.applicationDatabase.Customer
+                        select customer;
+
+            foreach (var item in query)
+            {
+                firstNameList.Add(item.FirstName);
+                lastNameList.Add(item.LastName);
+                phoneList.Add(item.PhoneNumber.ToString());
+            }
+
             invoiceTextBoxFirstName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             invoiceTextBoxFirstName.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            invoiceTextBoxFirstName.AutoCompleteCustomSource = autoCompleteID;
+            autoCompleteFirstName.AddRange(firstNameList.ToArray());
+            invoiceTextBoxFirstName.AutoCompleteCustomSource = autoCompleteFirstName;
 
-            
+            invoiceTextBoxLastName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            invoiceTextBoxLastName.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            autoCompleteLastName.AddRange(lastNameList.ToArray());
+            invoiceTextBoxLastName.AutoCompleteCustomSource = autoCompleteLastName;
+
+
+            invoiceTextBoxPhone.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            invoiceTextBoxPhone.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            autoCompletePhone.AddRange(phoneList.ToArray());
+            invoiceTextBoxPhone.AutoCompleteCustomSource = autoCompletePhone;  
         }
 
         private String getInvoiceId()
@@ -105,7 +130,7 @@ namespace formApp
             items.SubItems.Add(subtotal.ToString("0.00"));
             serviceListView.Items.Add(items);
 
-        }
+        }       
 
         private void addServiceButton_Click(object sender, EventArgs e)
         {
@@ -134,21 +159,22 @@ namespace formApp
             if (String.IsNullOrWhiteSpace(InvoiceTextBoxCustomerId.Text))
             {
                 bool errFlag = false;
-                String errMsg = "please enter:\n";
 
                 if (String.IsNullOrWhiteSpace(invoiceTextBoxFirstName.Text))
                 {
                     errFlag = true;
-                    errMsg += "First Name\n";
+                    firstNameErrorProvider.SetError(this.invoiceTextBoxFirstName, "First name required");
                 }
                 if (String.IsNullOrWhiteSpace(invoiceTextBoxLastName.Text))
                 {
                     errFlag = true;
-                    errMsg += "Last Name\n";
+                    firstNameErrorProvider.SetError(this.invoiceTextBoxLastName, "Last name required");
                 }
-                if (errFlag)
+                // todo: regex phone number validation
+                if (String.IsNullOrWhiteSpace(invoiceTextBoxPhone.Text))
                 {
-                    MessageBox.Show(errMsg, "Invalid input", MessageBoxButtons.OK, MessageBoxIcon.Error);                    
+                    errFlag = true;
+                    firstNameErrorProvider.SetError(this.invoiceTextBoxPhone, "Phone Number required");
                 }
                 if (!errFlag)
                 {
@@ -184,6 +210,36 @@ namespace formApp
             if (mainTabControl.SelectedIndex == 0)
             {
                 invoiceTimePicker.Value = DateTime.Now;
+            }
+        }
+
+        private void autoFillButton_Click(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrWhiteSpace(InvoiceTextBoxCustomerId.Text))
+            {
+                long id = Convert.ToInt64(InvoiceTextBoxCustomerId.Text);
+
+                var query = from customer in this.applicationDatabase.Customer
+                            where customer.CustomerId == id
+                            select customer;
+
+                if (!query.Any())
+                {
+                    MessageBox.Show("Please enter a valid Customer ID", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    foreach (var items in query)
+                    {
+                        invoiceTextBoxFirstName.Text = items.FirstName;
+                        invoiceTextBoxLastName.Text = items.LastName;
+                        invoiceTextBoxPhone.Text = items.PhoneNumber.ToString();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid Customer ID", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

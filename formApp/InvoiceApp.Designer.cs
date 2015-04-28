@@ -59,8 +59,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.serviceListView = new System.Windows.Forms.ListView();
             this.discHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.priceHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.idHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.priceHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label3 = new System.Windows.Forms.Label();
             this.invoiceTextBoxInvoiceNumber = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -74,6 +74,10 @@
             this.fKInvoiceCustome47DBAE45BindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.customerTableAdapter = new formApp.ApplicationDatabaseTableAdapters.CustomerTableAdapter();
             this.invoiceTableAdapter = new formApp.ApplicationDatabaseTableAdapters.InvoiceTableAdapter();
+            this.autoFillButton = new System.Windows.Forms.Button();
+            this.firstNameErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.lastNameErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.phoneErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -90,6 +94,9 @@
             this.invoiceTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fKInvoiceCustome47DBAE45BindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fKInvoiceCustome47DBAE45BindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.firstNameErrorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lastNameErrorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.phoneErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -195,10 +202,10 @@
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.invoiceDataGridView);
-            this.tabPage4.Location = new System.Drawing.Point(4, 24);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(313, 522);
+            this.tabPage4.Size = new System.Drawing.Size(313, 524);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Past Invoices";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -224,7 +231,7 @@
             this.invoiceDataGridView.Name = "invoiceDataGridView";
             this.invoiceDataGridView.ReadOnly = true;
             this.invoiceDataGridView.RowHeadersVisible = false;
-            this.invoiceDataGridView.Size = new System.Drawing.Size(307, 516);
+            this.invoiceDataGridView.Size = new System.Drawing.Size(307, 518);
             this.invoiceDataGridView.TabIndex = 0;
             // 
             // InvoiceID
@@ -282,6 +289,7 @@
             // 
             // invoiceTab
             // 
+            this.invoiceTab.Controls.Add(this.autoFillButton);
             this.invoiceTab.Controls.Add(this.InvoiceTextBoxCustomerId);
             this.invoiceTab.Controls.Add(this.label6);
             this.invoiceTab.Controls.Add(this.invoiceTimePicker);
@@ -398,15 +406,15 @@
             this.discHeader.Text = "Discription";
             this.discHeader.Width = 456;
             // 
-            // priceHeader
-            // 
-            this.priceHeader.Text = "Price";
-            this.priceHeader.Width = 80;
-            // 
             // idHeader
             // 
             this.idHeader.Text = "Item ID";
             this.idHeader.Width = 80;
+            // 
+            // priceHeader
+            // 
+            this.priceHeader.Text = "Price";
+            this.priceHeader.Width = 80;
             // 
             // label3
             // 
@@ -476,10 +484,10 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(639, 526);
+            this.tabPage2.Size = new System.Drawing.Size(639, 528);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Preview";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -501,6 +509,31 @@
             // invoiceTableAdapter
             // 
             this.invoiceTableAdapter.ClearBeforeFill = true;
+            // 
+            // autoFillButton
+            // 
+            this.autoFillButton.Location = new System.Drawing.Point(277, 101);
+            this.autoFillButton.Name = "autoFillButton";
+            this.autoFillButton.Size = new System.Drawing.Size(100, 23);
+            this.autoFillButton.TabIndex = 18;
+            this.autoFillButton.Text = "Autofill";
+            this.autoFillButton.UseVisualStyleBackColor = true;
+            this.autoFillButton.Click += new System.EventHandler(this.autoFillButton_Click);
+            // 
+            // firstNameErrorProvider
+            // 
+            this.firstNameErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.firstNameErrorProvider.ContainerControl = this;
+            // 
+            // lastNameErrorProvider
+            // 
+            this.lastNameErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.lastNameErrorProvider.ContainerControl = this;
+            // 
+            // phoneErrorProvider
+            // 
+            this.phoneErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.phoneErrorProvider.ContainerControl = this;
             // 
             // InvoiceApp
             // 
@@ -529,6 +562,9 @@
             this.invoiceTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fKInvoiceCustome47DBAE45BindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fKInvoiceCustome47DBAE45BindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.firstNameErrorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lastNameErrorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.phoneErrorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -581,6 +617,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn firstNameDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn lastNameDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn phoneNumberDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.Button autoFillButton;
+        private System.Windows.Forms.ErrorProvider firstNameErrorProvider;
+        private System.Windows.Forms.ErrorProvider lastNameErrorProvider;
+        private System.Windows.Forms.ErrorProvider phoneErrorProvider;
     }
 }
 
