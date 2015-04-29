@@ -56,7 +56,7 @@ namespace formApp
 
                 for (int i = collection.Count - 1; i >= 0; i--)
                 {
-                    ServiceItem temp = new ServiceItem(Convert.ToInt64(serviceDirectoryDataGridView.SelectedRows[i].Cells[0].Value.ToString()), serviceDirectoryDataGridView.SelectedRows[i].Cells[1].Value.ToString(), Convert.ToDouble(serviceDirectoryDataGridView.SelectedRows[i].Cells[2].Value.ToString()));
+                    ServiceItem temp = new ServiceItem(Int64.Parse(serviceDirectoryDataGridView.SelectedRows[i].Cells[0].Value.ToString()), serviceDirectoryDataGridView.SelectedRows[i].Cells[1].Value.ToString(), Double.Parse(serviceDirectoryDataGridView.SelectedRows[i].Cells[2].Value.ToString()));
                     serviceList.Add(temp);
                 }
 

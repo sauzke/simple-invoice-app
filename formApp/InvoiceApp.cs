@@ -124,7 +124,7 @@ namespace formApp
 
             for (int i = 0; i < serviceListView.Items.Count; i++)
             {
-                subtotal += Convert.ToDouble(serviceListView.Items[i].SubItems[2].Text);
+                subtotal += Double.Parse(serviceListView.Items[i].SubItems[2].Text);
             }
 
             items.SubItems.Add(subtotal.ToString("0.00"));
@@ -156,38 +156,63 @@ namespace formApp
 
         private void invoiceSaveButton_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrWhiteSpace(InvoiceTextBoxCustomerId.Text))
-            {
-                bool errFlag = false;
+            firstNameErrorProvider.Clear();
+            lastNameErrorProvider.Clear();
+            phoneErrorProvider.Clear();
+            
+            bool errFlag = false;
 
-                if (String.IsNullOrWhiteSpace(invoiceTextBoxFirstName.Text))
-                {
-                    errFlag = true;
-                    firstNameErrorProvider.SetError(this.invoiceTextBoxFirstName, "First name required");
-                }
-                if (String.IsNullOrWhiteSpace(invoiceTextBoxLastName.Text))
-                {
-                    errFlag = true;
-                    firstNameErrorProvider.SetError(this.invoiceTextBoxLastName, "Last name required");
-                }
-                // todo: regex phone number validation
-                if (String.IsNullOrWhiteSpace(invoiceTextBoxPhone.Text))
-                {
-                    errFlag = true;
-                    firstNameErrorProvider.SetError(this.invoiceTextBoxPhone, "Phone Number required");
-                }
-                if (!errFlag)
-                {
-                    // todo: no error, implement accessing db and inser new inovice 
-                    // also add new customer to table
-                }
-            }
-            else
+            if (String.IsNullOrWhiteSpace(invoiceTextBoxFirstName.Text))
             {
-                // todo: implement accessing DB and insert invoice with valid custID
-                // todo: auto complete custID;
-                // todo: check SQLexception for invalid custID
+                errFlag = true;
+                firstNameErrorProvider.SetError(this.invoiceTextBoxFirstName, "First name required");
             }
+            if (String.IsNullOrWhiteSpace(invoiceTextBoxLastName.Text))
+            {
+                errFlag = true;
+                firstNameErrorProvider.SetError(this.invoiceTextBoxLastName, "Last name required");
+            }
+            int result;
+            if (String.IsNullOrWhiteSpace(invoiceTextBoxPhone.Text) || !Int32.TryParse(invoiceTextBoxPhone.Text,out result))
+            {
+                errFlag = true;
+                firstNameErrorProvider.SetError(this.invoiceTextBoxPhone, "Phone Number required");
+            }
+            if (!errFlag)
+            {
+                if (String.IsNullOrWhiteSpace(InvoiceTextBoxCustomerId.Text))
+                {
+                    // todo: create invoice with
+                    // todo: ask if create new customer
+                }
+                else
+                {
+                    long id;
+                    bool valid = Int64.TryParse(InvoiceTextBoxCustomerId.Text,out id);
+
+                    if (valid)
+                    {
+                        var query = from customer in this.applicationDatabase.Customer
+                                    where customer.CustomerId == id
+                                    select customer;
+
+                        if (!query.Any())
+                        {
+                            MessageBox.Show("Please enter a valid Customer ID.\nIf you would like to create a new customer with the above infomation, please leave 'Customer ID' blank.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            // todo: create invoice                        
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please enter a valid Customer ID.\nIf you would like to create a new customer with the above infomation, please leave 'Customer ID' blank.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }                    
+                }
+            }
+
+                      
         }
 
         private void invoiceClearButton_Click(object sender, EventArgs e)
@@ -215,10 +240,9 @@ namespace formApp
 
         private void autoFillButton_Click(object sender, EventArgs e)
         {
-            if (!String.IsNullOrWhiteSpace(InvoiceTextBoxCustomerId.Text))
+            long id;
+            if (!String.IsNullOrWhiteSpace(InvoiceTextBoxCustomerId.Text) && Int64.TryParse(InvoiceTextBoxCustomerId.Text, out id))
             {
-                long id = Convert.ToInt64(InvoiceTextBoxCustomerId.Text);
-
                 var query = from customer in this.applicationDatabase.Customer
                             where customer.CustomerId == id
                             select customer;
