@@ -81,6 +81,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DatabaseDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Invoice.cs" />
     <Compile Include="InvoiceApp.cs">
       <SubType>Form</SubType>
     </Compile>

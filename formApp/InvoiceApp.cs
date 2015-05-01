@@ -33,6 +33,10 @@ namespace formApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'applicationDatabase.InvoiceCustView' table. You can move, or remove it, as needed.
+            this.invoiceCustViewTableAdapter.Fill(this.applicationDatabase.InvoiceCustView);
+            // TODO: This line of code loads data into the 'applicationDatabase.InvoiceDetails' table. You can move, or remove it, as needed.
+            this.invoiceDetailsTableAdapter.Fill(this.applicationDatabase.InvoiceDetails);
             this.invoiceTableAdapter.Fill(this.applicationDatabase.Invoice);
             this.customerTableAdapter.Fill(this.applicationDatabase.Customer);
 

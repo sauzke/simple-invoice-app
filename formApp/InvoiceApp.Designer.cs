@@ -41,14 +41,11 @@
             this.applicationDatabase = new formApp.ApplicationDatabase();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.invoiceDataGridView = new System.Windows.Forms.DataGridView();
-            this.InvoiceID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CustomerId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.firstNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lastNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fKInvoiceDeinvoi3C69FB99BindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.invoiceBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.invoiceTab = new System.Windows.Forms.TabPage();
+            this.autoFillButton = new System.Windows.Forms.Button();
             this.InvoiceTextBoxCustomerId = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.invoiceTimePicker = new System.Windows.Forms.DateTimePicker();
@@ -74,10 +71,18 @@
             this.fKInvoiceCustome47DBAE45BindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.customerTableAdapter = new formApp.ApplicationDatabaseTableAdapters.CustomerTableAdapter();
             this.invoiceTableAdapter = new formApp.ApplicationDatabaseTableAdapters.InvoiceTableAdapter();
-            this.autoFillButton = new System.Windows.Forms.Button();
             this.firstNameErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.lastNameErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.phoneErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.fKInvoiceDeinvoi3C69FB99BindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.invoiceDetailsTableAdapter = new formApp.ApplicationDatabaseTableAdapters.InvoiceDetailsTableAdapter();
+            this.invoiceCustViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.invoiceCustViewTableAdapter = new formApp.ApplicationDatabaseTableAdapters.InvoiceCustViewTableAdapter();
+            this.invoiceIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.custIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -89,6 +94,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.applicationDatabase)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fKInvoiceDeinvoi3C69FB99BindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceBindingSource)).BeginInit();
             this.mainTabControl.SuspendLayout();
             this.invoiceTab.SuspendLayout();
@@ -97,6 +103,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.firstNameErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lastNameErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.phoneErrorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fKInvoiceDeinvoi3C69FB99BindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.invoiceCustViewBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -112,8 +120,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.mainTabControl);
-            this.splitContainer1.Size = new System.Drawing.Size(981, 557);
-            this.splitContainer1.SplitterDistance = 327;
+            this.splitContainer1.Size = new System.Drawing.Size(1143, 557);
+            this.splitContainer1.SplitterDistance = 479;
             this.splitContainer1.TabIndex = 0;
             // 
             // sideTabControl
@@ -123,7 +131,7 @@
             this.sideTabControl.Location = new System.Drawing.Point(3, 3);
             this.sideTabControl.Name = "sideTabControl";
             this.sideTabControl.SelectedIndex = 0;
-            this.sideTabControl.Size = new System.Drawing.Size(321, 550);
+            this.sideTabControl.Size = new System.Drawing.Size(473, 550);
             this.sideTabControl.TabIndex = 0;
             // 
             // tabPage3
@@ -205,7 +213,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(313, 524);
+            this.tabPage4.Size = new System.Drawing.Size(465, 524);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Past Invoices";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -220,56 +228,25 @@
             this.invoiceDataGridView.ColumnHeadersHeight = 21;
             this.invoiceDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.invoiceDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.InvoiceID,
-            this.TotalPrice,
-            this.CustomerId,
-            this.firstNameDataGridViewTextBoxColumn,
-            this.lastNameDataGridViewTextBoxColumn});
-            this.invoiceDataGridView.DataSource = this.invoiceBindingSource;
+            this.invoiceIdDataGridViewTextBoxColumn,
+            this.custIDDataGridViewTextBoxColumn,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.totalDataGridViewTextBoxColumn});
+            this.invoiceDataGridView.DataSource = this.invoiceCustViewBindingSource;
             this.invoiceDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.invoiceDataGridView.Location = new System.Drawing.Point(3, 3);
             this.invoiceDataGridView.Name = "invoiceDataGridView";
             this.invoiceDataGridView.ReadOnly = true;
             this.invoiceDataGridView.RowHeadersVisible = false;
-            this.invoiceDataGridView.Size = new System.Drawing.Size(307, 518);
+            this.invoiceDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.invoiceDataGridView.Size = new System.Drawing.Size(459, 518);
             this.invoiceDataGridView.TabIndex = 0;
             // 
-            // InvoiceID
+            // fKInvoiceDeinvoi3C69FB99BindingSource1
             // 
-            this.InvoiceID.DataPropertyName = "InvoiceID";
-            this.InvoiceID.HeaderText = "InvoiceID";
-            this.InvoiceID.Name = "InvoiceID";
-            this.InvoiceID.ReadOnly = true;
-            // 
-            // TotalPrice
-            // 
-            this.TotalPrice.DataPropertyName = "TotalPrice";
-            this.TotalPrice.HeaderText = "TotalPrice";
-            this.TotalPrice.Name = "TotalPrice";
-            this.TotalPrice.ReadOnly = true;
-            // 
-            // CustomerId
-            // 
-            this.CustomerId.DataPropertyName = "CustomerId";
-            this.CustomerId.HeaderText = "CustomerId";
-            this.CustomerId.Name = "CustomerId";
-            this.CustomerId.ReadOnly = true;
-            // 
-            // firstNameDataGridViewTextBoxColumn
-            // 
-            this.firstNameDataGridViewTextBoxColumn.DataPropertyName = "FirstName";
-            this.firstNameDataGridViewTextBoxColumn.FillWeight = 105.9645F;
-            this.firstNameDataGridViewTextBoxColumn.HeaderText = "FirstName";
-            this.firstNameDataGridViewTextBoxColumn.Name = "firstNameDataGridViewTextBoxColumn";
-            this.firstNameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // lastNameDataGridViewTextBoxColumn
-            // 
-            this.lastNameDataGridViewTextBoxColumn.DataPropertyName = "LastName";
-            this.lastNameDataGridViewTextBoxColumn.FillWeight = 105.9645F;
-            this.lastNameDataGridViewTextBoxColumn.HeaderText = "LastName";
-            this.lastNameDataGridViewTextBoxColumn.Name = "lastNameDataGridViewTextBoxColumn";
-            this.lastNameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.fKInvoiceDeinvoi3C69FB99BindingSource1.DataMember = "FK__InvoiceDe__invoi__3C69FB99";
+            this.fKInvoiceDeinvoi3C69FB99BindingSource1.DataSource = this.invoiceBindingSource;
             // 
             // invoiceBindingSource
             // 
@@ -283,7 +260,7 @@
             this.mainTabControl.Location = new System.Drawing.Point(3, 3);
             this.mainTabControl.Name = "mainTabControl";
             this.mainTabControl.SelectedIndex = 0;
-            this.mainTabControl.Size = new System.Drawing.Size(647, 554);
+            this.mainTabControl.Size = new System.Drawing.Size(657, 554);
             this.mainTabControl.TabIndex = 0;
             this.mainTabControl.SelectedIndexChanged += new System.EventHandler(this.mainTabControl_SelectedIndexChanged);
             // 
@@ -310,10 +287,20 @@
             this.invoiceTab.Location = new System.Drawing.Point(4, 22);
             this.invoiceTab.Name = "invoiceTab";
             this.invoiceTab.Padding = new System.Windows.Forms.Padding(3);
-            this.invoiceTab.Size = new System.Drawing.Size(639, 528);
+            this.invoiceTab.Size = new System.Drawing.Size(649, 528);
             this.invoiceTab.TabIndex = 0;
             this.invoiceTab.Text = "Invoices";
             this.invoiceTab.UseVisualStyleBackColor = true;
+            // 
+            // autoFillButton
+            // 
+            this.autoFillButton.Location = new System.Drawing.Point(277, 101);
+            this.autoFillButton.Name = "autoFillButton";
+            this.autoFillButton.Size = new System.Drawing.Size(100, 23);
+            this.autoFillButton.TabIndex = 18;
+            this.autoFillButton.Text = "Autofill";
+            this.autoFillButton.UseVisualStyleBackColor = true;
+            this.autoFillButton.Click += new System.EventHandler(this.autoFillButton_Click);
             // 
             // InvoiceTextBoxCustomerId
             // 
@@ -510,16 +497,6 @@
             // 
             this.invoiceTableAdapter.ClearBeforeFill = true;
             // 
-            // autoFillButton
-            // 
-            this.autoFillButton.Location = new System.Drawing.Point(277, 101);
-            this.autoFillButton.Name = "autoFillButton";
-            this.autoFillButton.Size = new System.Drawing.Size(100, 23);
-            this.autoFillButton.TabIndex = 18;
-            this.autoFillButton.Text = "Autofill";
-            this.autoFillButton.UseVisualStyleBackColor = true;
-            this.autoFillButton.Click += new System.EventHandler(this.autoFillButton_Click);
-            // 
             // firstNameErrorProvider
             // 
             this.firstNameErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
@@ -535,11 +512,69 @@
             this.phoneErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.phoneErrorProvider.ContainerControl = this;
             // 
+            // fKInvoiceDeinvoi3C69FB99BindingSource
+            // 
+            this.fKInvoiceDeinvoi3C69FB99BindingSource.DataMember = "FK__InvoiceDe__invoi__3C69FB99";
+            this.fKInvoiceDeinvoi3C69FB99BindingSource.DataSource = this.invoiceBindingSource;
+            // 
+            // invoiceDetailsTableAdapter
+            // 
+            this.invoiceDetailsTableAdapter.ClearBeforeFill = true;
+            // 
+            // invoiceCustViewBindingSource
+            // 
+            this.invoiceCustViewBindingSource.DataMember = "InvoiceCustView";
+            this.invoiceCustViewBindingSource.DataSource = this.applicationDatabase;
+            // 
+            // invoiceCustViewTableAdapter
+            // 
+            this.invoiceCustViewTableAdapter.ClearBeforeFill = true;
+            // 
+            // invoiceIdDataGridViewTextBoxColumn
+            // 
+            this.invoiceIdDataGridViewTextBoxColumn.DataPropertyName = "InvoiceId";
+            this.invoiceIdDataGridViewTextBoxColumn.FillWeight = 81.90491F;
+            this.invoiceIdDataGridViewTextBoxColumn.HeaderText = "ID";
+            this.invoiceIdDataGridViewTextBoxColumn.Name = "invoiceIdDataGridViewTextBoxColumn";
+            this.invoiceIdDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // custIDDataGridViewTextBoxColumn
+            // 
+            this.custIDDataGridViewTextBoxColumn.DataPropertyName = "custID";
+            this.custIDDataGridViewTextBoxColumn.FillWeight = 76.14214F;
+            this.custIDDataGridViewTextBoxColumn.HeaderText = "Cust ID";
+            this.custIDDataGridViewTextBoxColumn.Name = "custIDDataGridViewTextBoxColumn";
+            this.custIDDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "firstname";
+            this.dataGridViewTextBoxColumn2.FillWeight = 113.9843F;
+            this.dataGridViewTextBoxColumn2.HeaderText = "First Name";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "lastname";
+            this.dataGridViewTextBoxColumn3.FillWeight = 113.9843F;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Last Name";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // totalDataGridViewTextBoxColumn
+            // 
+            this.totalDataGridViewTextBoxColumn.DataPropertyName = "total";
+            this.totalDataGridViewTextBoxColumn.FillWeight = 113.9843F;
+            this.totalDataGridViewTextBoxColumn.HeaderText = "Total";
+            this.totalDataGridViewTextBoxColumn.Name = "totalDataGridViewTextBoxColumn";
+            this.totalDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // InvoiceApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(981, 557);
+            this.ClientSize = new System.Drawing.Size(1143, 557);
             this.Controls.Add(this.splitContainer1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.Name = "InvoiceApp";
@@ -556,6 +591,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.applicationDatabase)).EndInit();
             this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.invoiceDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fKInvoiceDeinvoi3C69FB99BindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceBindingSource)).EndInit();
             this.mainTabControl.ResumeLayout(false);
             this.invoiceTab.ResumeLayout(false);
@@ -565,6 +601,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.firstNameErrorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lastNameErrorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.phoneErrorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fKInvoiceDeinvoi3C69FB99BindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.invoiceCustViewBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -605,11 +643,6 @@
         private ApplicationDatabaseTableAdapters.InvoiceTableAdapter invoiceTableAdapter;
         private System.Windows.Forms.BindingSource fKInvoiceCustome47DBAE45BindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn InvoiceID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TotalPrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CustomerId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn firstNameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lastNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource fKInvoiceCustome47DBAE45BindingSource1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox InvoiceTextBoxCustomerId;
@@ -621,6 +654,18 @@
         private System.Windows.Forms.ErrorProvider firstNameErrorProvider;
         private System.Windows.Forms.ErrorProvider lastNameErrorProvider;
         private System.Windows.Forms.ErrorProvider phoneErrorProvider;
+        private System.Windows.Forms.DataGridViewTextBoxColumn firstNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lastNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource fKInvoiceDeinvoi3C69FB99BindingSource;
+        private ApplicationDatabaseTableAdapters.InvoiceDetailsTableAdapter invoiceDetailsTableAdapter;
+        private System.Windows.Forms.BindingSource fKInvoiceDeinvoi3C69FB99BindingSource1;
+        private System.Windows.Forms.BindingSource invoiceCustViewBindingSource;
+        private ApplicationDatabaseTableAdapters.InvoiceCustViewTableAdapter invoiceCustViewTableAdapter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn invoiceIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn custIDDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn totalDataGridViewTextBoxColumn;
     }
 }
 
