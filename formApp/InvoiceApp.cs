@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using iTextSharp.text;
 using System.Linq;
 
-// todo: generate .mdf file if missing with all tables
+// todo: generate .mdf file if missing with all tables and view
 
 namespace formApp
 {
@@ -33,9 +33,7 @@ namespace formApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'applicationDatabase.InvoiceCustView' table. You can move, or remove it, as needed.
             this.invoiceCustViewTableAdapter.Fill(this.applicationDatabase.InvoiceCustView);
-            // TODO: This line of code loads data into the 'applicationDatabase.InvoiceDetails' table. You can move, or remove it, as needed.
             this.invoiceDetailsTableAdapter.Fill(this.applicationDatabase.InvoiceDetails);
             this.invoiceTableAdapter.Fill(this.applicationDatabase.Invoice);
             this.customerTableAdapter.Fill(this.applicationDatabase.Customer);
@@ -88,15 +86,28 @@ namespace formApp
 
             try
             {
-                String sql = "SELECT MAX(InvoiceId) FROM Invoice";
-                SqlCommand exeSql = new SqlCommand(sql, conn);
-                conn.Open();
-                id = exeSql.ExecuteScalar().ToString();
-               
-                if (id == null || id == "")
+                //String sql = "SELECT MAX(InvoiceId) FROM Invoice";
+                //SqlCommand exeSql = new SqlCommand(sql, conn);
+                //conn.Open();
+                //long result;
+                //if (long.TryParse(exeSql.ExecuteScalar().ToString(), out result))
+                //{
+                //    id = (result + 1).ToString();
+                //}
+                //else
+                //{
+                //    id = "1";
+                //}              
+
+                var query = from invoice in this.applicationDatabase.Invoice
+                            select invoice.InvoiceId;
+                if (!query.Any())
                 {
                     id = "1";
-                    
+                }
+                else
+                {
+                    id = (query.Max() + 1).ToString();
                 }                
             }
             catch (Exception e)
@@ -206,7 +217,8 @@ namespace formApp
                         }
                         else
                         {
-                            // todo: create invoice                        
+                            // todo: create invoice        
+                            
                         }
                     }
                     else
@@ -217,6 +229,18 @@ namespace formApp
             }
 
                       
+        }
+
+        private void createInvoice(long id)
+        {
+            if (id != 0)
+            {
+               
+            }
+            else
+            {
+                MessageBox.Show("Null custID while creating invoice", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void invoiceClearButton_Click(object sender, EventArgs e)
