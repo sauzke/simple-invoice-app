@@ -25,8 +25,7 @@ namespace formApp
 
         public InvoiceApp()
         {
-            InitializeComponent();
-            conn = new SqlConnection(global::formApp.Properties.Settings.Default.DatabaseConnectionString);
+            InitializeComponent();            
             items = new ListViewItem();
             serviceList = new List<ServiceItem>();
         }
@@ -86,6 +85,7 @@ namespace formApp
 
             try
             {
+                // SQL
                 //String sql = "SELECT MAX(InvoiceId) FROM Invoice";
                 //SqlCommand exeSql = new SqlCommand(sql, conn);
                 //conn.Open();
@@ -99,6 +99,7 @@ namespace formApp
                 //    id = "1";
                 //}              
 
+                // LINQ
                 var query = from invoice in this.applicationDatabase.Invoice
                             select invoice.InvoiceId;
                 if (!query.Any())
@@ -187,19 +188,25 @@ namespace formApp
                 errFlag = true;
                 firstNameErrorProvider.SetError(this.invoiceTextBoxLastName, "Last name required");
             }
-            int result;
-            if (String.IsNullOrWhiteSpace(invoiceTextBoxPhone.Text) || !Int32.TryParse(invoiceTextBoxPhone.Text,out result))
+            long result;
+            if (String.IsNullOrWhiteSpace(invoiceTextBoxPhone.Text) || !Int64.TryParse(invoiceTextBoxPhone.Text,out result))
             {
                 errFlag = true;
                 firstNameErrorProvider.SetError(this.invoiceTextBoxPhone, "Phone Number required");
             }
+            // todo: check phone number with regex
+
             if (!errFlag)
             {
+                // creating new customer 
                 if (String.IsNullOrWhiteSpace(InvoiceTextBoxCustomerId.Text))
                 {
                     // todo: create invoice with
                     // todo: ask if create new customer
+
+                    //createInvoice(id);
                 }
+                // validating customer ID
                 else
                 {
                     long id;
@@ -217,8 +224,7 @@ namespace formApp
                         }
                         else
                         {
-                            // todo: create invoice        
-                            
+                           createInvoice(id);
                         }
                     }
                     else
@@ -235,7 +241,39 @@ namespace formApp
         {
             if (id != 0)
             {
-               
+                Invoice invoice = new Invoice();
+                invoice.CustomerId = id;
+
+                long result;
+                if (Int64.TryParse(invoiceTextBoxInvoiceNumber.Text.ToString(), out result))
+                {
+                    invoice.InvoiceId = result;
+                    invoice.Services = serviceList;
+
+                    // LINQ
+                    //ApplicationDatabase.InvoiceRow rb = this.applicationDatabase.Invoice.NewInvoiceRow();
+                    //rb.CustomerId = (int)invoice.CustomerId;
+                    //rb.InvoiceId = (int)invoice.InvoiceId;
+                    //this.applicationDatabase.Invoice.AddInvoiceRow(rb);
+
+                    // SQL
+
+                    using (conn = new SqlConnection(global::formApp.Properties.Settings.Default.DatabaseConnectionString))
+                    {
+                        string sqlIns = "INSERT INTO Invoice (CustomerId) VALUES (@customerId)";
+                        SqlCommand cmdIns = new SqlCommand(sqlIns, conn);
+                        cmdIns.Parameters.AddWithValue("@customerId", invoice.CustomerId);
+                        conn.Open();
+                        cmdIns.ExecuteNonQuery();
+                        cmdIns.Parameters.Clear();
+                        conn.Close();
+
+                    }                    
+                }
+                else
+                {
+                    MessageBox.Show("Null invoiceID while creating invoice", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }                
             }
             else
             {

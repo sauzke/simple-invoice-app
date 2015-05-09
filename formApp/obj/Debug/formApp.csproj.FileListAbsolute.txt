@@ -34,8 +34,6 @@ C:\Users\Jimmy\Desktop\simple-invoice-app\formApp\obj\Debug\formApp.addServiceDi
 C:\Users\Jimmy\Desktop\simple-invoice-app\formApp\obj\Debug\formApp.InvoiceApp.resources
 C:\Users\Jimmy\Desktop\simple-invoice-app\formApp\obj\Debug\formApp.Properties.Resources.resources
 C:\Users\Jimmy\Desktop\simple-invoice-app\formApp\obj\Debug\formApp.csproj.GenerateResource.Cache
-C:\Users\Jimmy\Desktop\simple-invoice-app\formApp\bin\Debug\Database.mdf
-C:\Users\Jimmy\Desktop\simple-invoice-app\formApp\bin\Debug\Database_log.ldf
 C:\Users\Jimmy\Desktop\simple-invoice-app\formApp\bin\Debug\formApp.exe
 C:\Users\Jimmy\Desktop\simple-invoice-app\formApp\bin\Debug\formApp.pdb
 C:\Users\Jimmy\Desktop\simple-invoice-app\formApp\bin\Debug\itextsharp.dll
