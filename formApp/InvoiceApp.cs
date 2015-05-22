@@ -224,7 +224,12 @@ namespace formApp
                         }
                         else
                         {
-                           createInvoice(id);
+                            if (createInvoice(id))
+                            {
+                                MessageBox.Show("Invoice created successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
+                                clearForm();
+                                invoiceTextBoxInvoiceNumber.Text = getInvoiceId();
+                            }
                         }
                     }
                     else
@@ -237,7 +242,7 @@ namespace formApp
                       
         }
 
-        private void createInvoice(long id)
+        private bool createInvoice(long id)
         {
             if (id != 0)
             {
@@ -257,7 +262,6 @@ namespace formApp
                     //this.applicationDatabase.Invoice.AddInvoiceRow(rb);
 
                     // SQL
-
                     using (conn = new SqlConnection(global::formApp.Properties.Settings.Default.DatabaseConnectionString))
                     {
                         string sqlIns = "INSERT INTO Invoice (CustomerId) VALUES (@customerId)";
@@ -267,17 +271,19 @@ namespace formApp
                         cmdIns.ExecuteNonQuery();
                         cmdIns.Parameters.Clear();
                         conn.Close();
-
-                    }                    
+                    }
+                    return true;
                 }
                 else
                 {
                     MessageBox.Show("Null invoiceID while creating invoice", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
                 }                
             }
             else
             {
                 MessageBox.Show("Null custID while creating invoice", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
         }
 
@@ -285,15 +291,20 @@ namespace formApp
         {
             if (MessageBox.Show("Are you sure you want to clear the form?", "Clearing form", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                serviceList.Clear();
-                serviceListView.Items.Clear();
-                InvoiceTextBoxCustomerId.Clear();
-                invoiceTextBoxFirstName.Clear();
-                invoiceTextBoxLastName.Clear();
-                invoiceTextBoxPhone.Clear();
-                invoiceTimePicker.Value = DateTime.Now;
-                calcSubtotal();
+                clearForm();
             }            
+        }
+
+        private void clearForm()
+        {
+            serviceList.Clear();
+            serviceListView.Items.Clear();
+            InvoiceTextBoxCustomerId.Clear();
+            invoiceTextBoxFirstName.Clear();
+            invoiceTextBoxLastName.Clear();
+            invoiceTextBoxPhone.Clear();
+            invoiceTimePicker.Value = DateTime.Now;
+            calcSubtotal();
         }
 
         private void mainTabControl_SelectedIndexChanged(object sender, EventArgs e)
