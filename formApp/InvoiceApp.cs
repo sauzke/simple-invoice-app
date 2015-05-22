@@ -86,30 +86,32 @@ namespace formApp
             try
             {
                 // SQL
-                //String sql = "SELECT MAX(InvoiceId) FROM Invoice";
-                //SqlCommand exeSql = new SqlCommand(sql, conn);
-                //conn.Open();
-                //long result;
-                //if (long.TryParse(exeSql.ExecuteScalar().ToString(), out result))
+                using (conn = new SqlConnection(global::formApp.Properties.Settings.Default.DatabaseConnectionString))
+                {
+                    String sql = "SELECT MAX(InvoiceId) FROM Invoice";
+                    SqlCommand exeSql = new SqlCommand(sql, conn);
+                    conn.Open();
+                    long result;
+                    if (long.TryParse(exeSql.ExecuteScalar().ToString(), out result))
+                    {
+                        id = (result + 1).ToString();
+                    }
+                    else
+                    {
+                        id = "1";
+                    }
+                }
+                // LINQ
+                //var query = from invoice in this.applicationDatabase.Invoice
+                //            select invoice.InvoiceId;
+                //if (!query.Any())
                 //{
-                //    id = (result + 1).ToString();
+                //    id = "1";
                 //}
                 //else
                 //{
-                //    id = "1";
-                //}              
-
-                // LINQ
-                var query = from invoice in this.applicationDatabase.Invoice
-                            select invoice.InvoiceId;
-                if (!query.Any())
-                {
-                    id = "1";
-                }
-                else
-                {
-                    id = (query.Max() + 1).ToString();
-                }                
+                //    id = (query.Max() + 1).ToString();
+                //}                
             }
             catch (Exception e)
             {
@@ -201,10 +203,23 @@ namespace formApp
                 // creating new customer 
                 if (String.IsNullOrWhiteSpace(InvoiceTextBoxCustomerId.Text))
                 {
-                    // todo: create invoice with
-                    // todo: ask if create new customer
-
-                    //createInvoice(id);
+                    if (MessageBox.Show("Would you like to create a new customer using the infomation above?", "Creating new customer", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        using (conn = new SqlConnection(global::formApp.Properties.Settings.Default.DatabaseConnectionString))
+                        {
+                            string sqlIns = "INSERT INTO Customer (FirstName,LastName,PhoneNumber) VALUES (@firstName,@lastName,@phoneNumber)";
+                            SqlCommand cmdIns = new SqlCommand(sqlIns, conn);
+                            cmdIns.Parameters.AddWithValue("@firstName", invoiceTextBoxFirstName.Text.ToString());
+                            cmdIns.Parameters.AddWithValue("@lastName", invoiceTextBoxLastName.Text.ToString());
+                            cmdIns.Parameters.AddWithValue("@phoneNumber", invoiceTextBoxPhone.Text.ToString());
+                            conn.Open();
+                            cmdIns.ExecuteNonQuery();
+                            cmdIns.Parameters.Clear();
+                            conn.Close();
+                            // todo: make sql return a customer ID
+                        }
+                        //createInvoice(id);
+                    }
                 }
                 // validating customer ID
                 else
@@ -242,6 +257,7 @@ namespace formApp
                       
         }
 
+        //todo: create addtion sql for invoicedetails table
         private bool createInvoice(long id)
         {
             if (id != 0)
