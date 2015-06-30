@@ -245,11 +245,8 @@ namespace formApp
                                 clearForm();
                                 invoiceTextBoxInvoiceNumber.Text = getInvoiceId();
 
-                                // todo: update datagridview data
-                                this.invoiceCustViewTableAdapter.Fill(this.applicationDatabase.InvoiceCustView);
-                                invoiceCustViewBindingSource.ResetBindings(true);
-                                invoiceDataGridView.DataSource = null;
-                                invoiceDataGridView.DataSource = invoiceCustViewBindingSource;
+                                //update datagridview data
+                                updateInvoiceDataGrid();
                             }
                         }
                     }
@@ -258,9 +255,15 @@ namespace formApp
                         MessageBox.Show("Please enter a valid Customer ID.\nIf you would like to create a new customer with the above infomation, please leave 'Customer ID' blank.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }                    
                 }
-            }
+            }                      
+        }
 
-                      
+        private void updateInvoiceDataGrid()
+        {
+            this.invoiceCustViewTableAdapter.Fill(this.applicationDatabase.InvoiceCustView);
+            invoiceCustViewBindingSource.ResetBindings(true);
+            invoiceDataGridView.DataSource = null;
+            invoiceDataGridView.DataSource = invoiceCustViewBindingSource;
         }
 
         //todo: create addtion sql for invoicedetails table
