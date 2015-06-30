@@ -246,9 +246,10 @@ namespace formApp
                                 invoiceTextBoxInvoiceNumber.Text = getInvoiceId();
 
                                 // todo: update datagridview data
-                                //invoiceCustViewBindingSource.ResetBindings(true);
-                                //invoiceDataGridView.DataSource = null;
-                                //invoiceDataGridView.DataSource = invoiceCustViewBindingSource;
+                                this.invoiceCustViewTableAdapter.Fill(this.applicationDatabase.InvoiceCustView);
+                                invoiceCustViewBindingSource.ResetBindings(true);
+                                invoiceDataGridView.DataSource = null;
+                                invoiceDataGridView.DataSource = invoiceCustViewBindingSource;
                             }
                         }
                     }
