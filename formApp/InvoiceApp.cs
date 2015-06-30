@@ -244,6 +244,11 @@ namespace formApp
                                 MessageBox.Show("Invoice created successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
                                 clearForm();
                                 invoiceTextBoxInvoiceNumber.Text = getInvoiceId();
+
+                                // todo: update datagridview data
+                                //invoiceCustViewBindingSource.ResetBindings(true);
+                                //invoiceDataGridView.DataSource = null;
+                                //invoiceDataGridView.DataSource = invoiceCustViewBindingSource;
                             }
                         }
                     }

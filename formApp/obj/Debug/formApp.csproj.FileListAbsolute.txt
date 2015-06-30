@@ -11,8 +11,6 @@ C:\Users\Jimmy\Desktop\formApp\formApp\bin\Debug\itextsharp.xml
 C:\Users\a00914567\Desktop\simple-invoice-app\formApp\bin\Debug\formApp.exe.config
 C:\Users\a00914567\Desktop\simple-invoice-app\formApp\obj\Debug\formApp.exe
 C:\Users\a00914567\Desktop\simple-invoice-app\formApp\obj\Debug\formApp.pdb
-C:\Users\a00914567\Desktop\simple-invoice-app\formApp\bin\Debug\Database.mdf
-C:\Users\a00914567\Desktop\simple-invoice-app\formApp\bin\Debug\Database_log.ldf
 C:\Users\a00914567\Desktop\simple-invoice-app\formApp\bin\Debug\formApp.exe
 C:\Users\a00914567\Desktop\simple-invoice-app\formApp\bin\Debug\formApp.pdb
 C:\Users\a00914567\Desktop\simple-invoice-app\formApp\bin\Debug\itextsharp.dll
