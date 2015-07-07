@@ -16,6 +16,8 @@ namespace formApp
 {
     public partial class InvoiceApp : Form
     {
+        #region variable declaration
+
         AutoCompleteStringCollection autoCompleteFirstName = new AutoCompleteStringCollection();
         AutoCompleteStringCollection autoCompleteLastName = new AutoCompleteStringCollection();
         AutoCompleteStringCollection autoCompletePhone = new AutoCompleteStringCollection();
@@ -23,12 +25,20 @@ namespace formApp
         ListViewItem items;
         List<ServiceItem> serviceList;
 
+        #endregion
+
+        #region constructor
+
         public InvoiceApp()
         {
             InitializeComponent();            
             items = new ListViewItem();
             serviceList = new List<ServiceItem>();
         }
+
+        #endregion
+
+        #region initialize
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -79,76 +89,9 @@ namespace formApp
             invoiceTextBoxPhone.AutoCompleteCustomSource = autoCompletePhone;  
         }
 
-        private String getInvoiceId()
-        {
-            String id = "";
+        #endregion
 
-            try
-            {
-                // SQL
-                using (conn = new SqlConnection(global::formApp.Properties.Settings.Default.DatabaseConnectionString))
-                {
-                    String sql = "SELECT MAX(InvoiceId) FROM Invoice";
-                    SqlCommand exeSql = new SqlCommand(sql, conn);
-                    conn.Open();
-                    long result;
-                    if (long.TryParse(exeSql.ExecuteScalar().ToString(), out result))
-                    {
-                        id = (result + 1).ToString();
-                    }
-                    else
-                    {
-                        id = "1";
-                    }
-                }
-                // LINQ
-                //var query = from invoice in this.applicationDatabase.Invoice
-                //            select invoice.InvoiceId;
-                //if (!query.Any())
-                //{
-                //    id = "1";
-                //}
-                //else
-                //{
-                //    id = (query.Max() + 1).ToString();
-                //}                
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.StackTrace);
-            }
-
-            return id;
-        }
-
-        private void loadList()
-        {
-            foreach (ServiceItem serviceItem in serviceList)
-            {
-                ListViewItem items = new ListViewItem();
-                items.Text = serviceItem.Description;
-                items.SubItems.Add(serviceItem.Id+"");
-                items.SubItems.Add(serviceItem.Price+"");
-                serviceListView.Items.Add(items);   
-            }
-            calcSubtotal();
-        }
-
-        private void calcSubtotal()
-        {
-            serviceListView.Items.Remove(items);
-            items.SubItems.RemoveAt(2);
-            double subtotal = 0.0;
-
-            for (int i = 0; i < serviceListView.Items.Count; i++)
-            {
-                subtotal += Double.Parse(serviceListView.Items[i].SubItems[2].Text);
-            }
-
-            items.SubItems.Add(subtotal.ToString("0.00"));
-            serviceListView.Items.Add(items);
-
-        }       
+        #region click events
 
         private void addServiceButton_Click(object sender, EventArgs e)
         {
@@ -258,12 +201,111 @@ namespace formApp
             }                      
         }
 
+        private void invoiceClearButton_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to clear the form?", "Clearing form", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                clearForm();
+            }
+        }
+
+        private void mainTabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (mainTabControl.SelectedIndex == 0)
+            {
+                invoiceTimePicker.Value = DateTime.Now;
+            }
+        }
+
+        private void autoFillButton_Click(object sender, EventArgs e)
+        {
+            long id;
+            if (!String.IsNullOrWhiteSpace(InvoiceTextBoxCustomerId.Text) && Int64.TryParse(InvoiceTextBoxCustomerId.Text, out id))
+            {
+                var query = from customer in this.applicationDatabase.Customer
+                            where customer.CustomerId == id
+                            select customer;
+
+                if (!query.Any())
+                {
+                    MessageBox.Show("Please enter a valid Customer ID", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    foreach (var items in query)
+                    {
+                        invoiceTextBoxFirstName.Text = items.FirstName;
+                        invoiceTextBoxLastName.Text = items.LastName;
+                        invoiceTextBoxPhone.Text = items.PhoneNumber.ToString();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid Customer ID", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+#endregion
+
+        #region SQL methods
+
+        private String getInvoiceId()
+        {
+            String id = "";
+
+            try
+            {
+                // SQL
+                using (conn = new SqlConnection(global::formApp.Properties.Settings.Default.DatabaseConnectionString))
+                {
+                    String sql = "SELECT MAX(InvoiceId) FROM Invoice";
+                    SqlCommand exeSql = new SqlCommand(sql, conn);
+                    conn.Open();
+                    long result;
+                    if (long.TryParse(exeSql.ExecuteScalar().ToString(), out result))
+                    {
+                        id = (result + 1).ToString();
+                    }
+                    else
+                    {
+                        id = "1";
+                    }
+                }
+                // LINQ
+                //var query = from invoice in this.applicationDatabase.Invoice
+                //            select invoice.InvoiceId;
+                //if (!query.Any())
+                //{
+                //    id = "1";
+                //}
+                //else
+                //{
+                //    id = (query.Max() + 1).ToString();
+                //}                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+            }
+
+            return id;
+        }
+
         private void updateInvoiceDataGrid()
         {
             this.invoiceCustViewTableAdapter.Fill(this.applicationDatabase.InvoiceCustView);
-            invoiceCustViewBindingSource.ResetBindings(true);
+            invoiceCustViewBindingSource.ResetBindings(false);
             invoiceDataGridView.DataSource = null;
             invoiceDataGridView.DataSource = invoiceCustViewBindingSource;
+        }
+
+        private void updateCustomerDataGrid()
+        {
+            this.customerTableAdapter.Fill(this.applicationDatabase.Customer);
+            customerBindingSource.ResetBindings(false);
+            customerDataGridView.DataSource = null;
+            customerDataGridView.DataSource = customerBindingSource;
         }
 
         //todo: create addtion sql for invoicedetails table
@@ -303,22 +345,47 @@ namespace formApp
                 {
                     MessageBox.Show("Null invoiceID while creating invoice", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
-                }                
+                }
             }
             else
             {
                 MessageBox.Show("Null custID while creating invoice", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+        }        
+
+        #endregion
+
+        #region utility methods
+
+        private void loadList()
+        {
+            foreach (ServiceItem serviceItem in serviceList)
+            {
+                ListViewItem items = new ListViewItem();
+                items.Text = serviceItem.Description;
+                items.SubItems.Add(serviceItem.Id + "");
+                items.SubItems.Add(serviceItem.Price + "");
+                serviceListView.Items.Add(items);
+            }
+            calcSubtotal();
         }
 
-        private void invoiceClearButton_Click(object sender, EventArgs e)
+        private void calcSubtotal()
         {
-            if (MessageBox.Show("Are you sure you want to clear the form?", "Clearing form", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            serviceListView.Items.Remove(items);
+            items.SubItems.RemoveAt(2);
+            double subtotal = 0.0;
+
+            for (int i = 0; i < serviceListView.Items.Count; i++)
             {
-                clearForm();
-            }            
-        }
+                subtotal += Double.Parse(serviceListView.Items[i].SubItems[2].Text);
+            }
+
+            items.SubItems.Add(subtotal.ToString("0.00"));
+            serviceListView.Items.Add(items);
+
+        }       
 
         private void clearForm()
         {
@@ -332,41 +399,6 @@ namespace formApp
             calcSubtotal();
         }
 
-        private void mainTabControl_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (mainTabControl.SelectedIndex == 0)
-            {
-                invoiceTimePicker.Value = DateTime.Now;
-            }
-        }
-
-        private void autoFillButton_Click(object sender, EventArgs e)
-        {
-            long id;
-            if (!String.IsNullOrWhiteSpace(InvoiceTextBoxCustomerId.Text) && Int64.TryParse(InvoiceTextBoxCustomerId.Text, out id))
-            {
-                var query = from customer in this.applicationDatabase.Customer
-                            where customer.CustomerId == id
-                            select customer;
-
-                if (!query.Any())
-                {
-                    MessageBox.Show("Please enter a valid Customer ID", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    foreach (var items in query)
-                    {
-                        invoiceTextBoxFirstName.Text = items.FirstName;
-                        invoiceTextBoxLastName.Text = items.LastName;
-                        invoiceTextBoxPhone.Text = items.PhoneNumber.ToString();
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please enter a valid Customer ID", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+        #endregion
     }
 }
