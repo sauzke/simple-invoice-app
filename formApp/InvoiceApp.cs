@@ -148,19 +148,7 @@ namespace formApp
                 {
                     if (MessageBox.Show("Would you like to create a new customer using the infomation above?", "Creating new customer", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        using (conn = new SqlConnection(global::formApp.Properties.Settings.Default.DatabaseConnectionString))
-                        {
-                            string sqlIns = "INSERT INTO Customer (FirstName,LastName,PhoneNumber) VALUES (@firstName,@lastName,@phoneNumber)";
-                            SqlCommand cmdIns = new SqlCommand(sqlIns, conn);
-                            cmdIns.Parameters.AddWithValue("@firstName", invoiceTextBoxFirstName.Text.ToString());
-                            cmdIns.Parameters.AddWithValue("@lastName", invoiceTextBoxLastName.Text.ToString());
-                            cmdIns.Parameters.AddWithValue("@phoneNumber", invoiceTextBoxPhone.Text.ToString());
-                            conn.Open();
-                            cmdIns.ExecuteNonQuery();
-                            cmdIns.Parameters.Clear();
-                            conn.Close();
-                            // todo: make sql return a customer ID
-                        }
+                        int id = createCustomer();
                         //createInvoice(id);
                     }
                 }
@@ -250,6 +238,7 @@ namespace formApp
 
         #region SQL methods
 
+        // Gets the ID of the last invoice and incriment it by 1
         private String getInvoiceId()
         {
             String id = "";
@@ -272,6 +261,7 @@ namespace formApp
                         id = "1";
                     }
                 }
+
                 // LINQ
                 //var query = from invoice in this.applicationDatabase.Invoice
                 //            select invoice.InvoiceId;
@@ -352,7 +342,29 @@ namespace formApp
                 MessageBox.Show("Null custID while creating invoice", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-        }        
+        }
+
+        private int createCustomer()
+        {
+            int id = 0;
+
+            using (conn = new SqlConnection(global::formApp.Properties.Settings.Default.DatabaseConnectionString))
+            {
+                string sqlIns = "INSERT INTO Customer OUTPUT id (FirstName,LastName,PhoneNumber) VALUES (@firstName,@lastName,@phoneNumber)";
+                SqlCommand cmdIns = new SqlCommand(sqlIns, conn);
+                cmdIns.Parameters.AddWithValue("@firstName", invoiceTextBoxFirstName.Text.ToString());
+                cmdIns.Parameters.AddWithValue("@lastName", invoiceTextBoxLastName.Text.ToString());
+                cmdIns.Parameters.AddWithValue("@phoneNumber", invoiceTextBoxPhone.Text.ToString());
+                conn.Open();
+                cmdIns.ExecuteNonQuery();
+                cmdIns.Parameters.Clear();
+                //MessageBox.Show(newlyInsertedID.ToString());
+                conn.Close();
+                // todo: make sql return a customer ID
+            }
+
+            return id;
+        }
 
         #endregion
 
