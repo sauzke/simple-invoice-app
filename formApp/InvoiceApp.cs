@@ -350,15 +350,15 @@ namespace formApp
 
             using (conn = new SqlConnection(global::formApp.Properties.Settings.Default.DatabaseConnectionString))
             {
-                string sqlIns = "INSERT INTO Customer OUTPUT id (FirstName,LastName,PhoneNumber) VALUES (@firstName,@lastName,@phoneNumber)";
+                string sqlIns = "INSERT INTO Customer OUTPUT INSERTED.CustomerId (FirstName,LastName,PhoneNumber) VALUES (@firstName,@lastName,@phoneNumber)";
                 SqlCommand cmdIns = new SqlCommand(sqlIns, conn);
                 cmdIns.Parameters.AddWithValue("@firstName", invoiceTextBoxFirstName.Text.ToString());
                 cmdIns.Parameters.AddWithValue("@lastName", invoiceTextBoxLastName.Text.ToString());
                 cmdIns.Parameters.AddWithValue("@phoneNumber", invoiceTextBoxPhone.Text.ToString());
                 conn.Open();
-                cmdIns.ExecuteNonQuery();
+                int newID = (int)cmdIns.ExecuteScalar();
                 cmdIns.Parameters.Clear();
-                //MessageBox.Show(newlyInsertedID.ToString());
+                MessageBox.Show(newID.ToString());
                 conn.Close();
                 // todo: make sql return a customer ID
             }
