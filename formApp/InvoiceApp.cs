@@ -149,7 +149,21 @@ namespace formApp
                     if (MessageBox.Show("Would you like to create a new customer using the infomation above?", "Creating new customer", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         int id = createCustomer();
-                        //createInvoice(id);
+                        if (createInvoice(id))
+                        {
+                            MessageBox.Show("Invoice created successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
+                            clearForm();
+                            invoiceTextBoxInvoiceNumber.Text = getInvoiceId();
+
+                            //update datagridview data
+                            updateInvoiceDataGrid();
+                            updateCustomerDataGrid();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed creating invoice", "unexpected error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
                     }
                 }
                 // validating customer ID
@@ -178,6 +192,10 @@ namespace formApp
 
                                 //update datagridview data
                                 updateInvoiceDataGrid();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Failed creating invoice", "unexpected error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
                     }
@@ -350,15 +368,14 @@ namespace formApp
 
             using (conn = new SqlConnection(global::formApp.Properties.Settings.Default.DatabaseConnectionString))
             {
-                string sqlIns = "INSERT INTO Customer OUTPUT INSERTED.CustomerId (FirstName,LastName,PhoneNumber) VALUES (@firstName,@lastName,@phoneNumber)";
+                string sqlIns = "INSERT INTO Customer (FirstName,LastName,PhoneNumber) OUTPUT INSERTED.CustomerId VALUES (@firstName,@lastName,@phoneNumber)";
                 SqlCommand cmdIns = new SqlCommand(sqlIns, conn);
                 cmdIns.Parameters.AddWithValue("@firstName", invoiceTextBoxFirstName.Text.ToString());
                 cmdIns.Parameters.AddWithValue("@lastName", invoiceTextBoxLastName.Text.ToString());
                 cmdIns.Parameters.AddWithValue("@phoneNumber", invoiceTextBoxPhone.Text.ToString());
                 conn.Open();
-                int newID = (int)cmdIns.ExecuteScalar();
-                cmdIns.Parameters.Clear();
-                MessageBox.Show(newID.ToString());
+
+                id = (int)cmdIns.ExecuteScalar();
                 conn.Close();
                 // todo: make sql return a customer ID
             }
