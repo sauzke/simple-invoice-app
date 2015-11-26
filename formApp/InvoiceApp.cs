@@ -223,34 +223,47 @@ namespace formApp
             }
         }
 
-        private void autoFillButton_Click(object sender, EventArgs e)
+        
+        private void customerDataGridView_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            long id;
-            if (!String.IsNullOrWhiteSpace(InvoiceTextBoxCustomerId.Text) && Int64.TryParse(InvoiceTextBoxCustomerId.Text, out id))
+            if (e.RowIndex != -1)
             {
-                var query = from customer in this.applicationDatabase.Customer
-                            where customer.CustomerId == id
-                            select customer;
-
-                if (!query.Any())
-                {
-                    MessageBox.Show("Please enter a valid Customer ID", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    foreach (var items in query)
-                    {
-                        invoiceTextBoxFirstName.Text = items.FirstName;
-                        invoiceTextBoxLastName.Text = items.LastName;
-                        invoiceTextBoxPhone.Text = items.PhoneNumber.ToString();
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please enter a valid Customer ID", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show(customerDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                InvoiceTextBoxCustomerId.Text = customerDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
+                invoiceTextBoxFirstName.Text = customerDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString();
+                invoiceTextBoxLastName.Text = customerDataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
+                invoiceTextBoxPhone.Text = customerDataGridView.Rows[e.RowIndex].Cells[3].Value.ToString();
             }
         }
+
+        //private void autoFillButton_Click(object sender, EventArgs e)
+        //{
+        //    long id;
+        //    if (!String.IsNullOrWhiteSpace(InvoiceTextBoxCustomerId.Text) && Int64.TryParse(InvoiceTextBoxCustomerId.Text, out id))
+        //    {
+        //        var query = from customer in this.applicationDatabase.Customer
+        //                    where customer.CustomerId == id
+        //                    select customer;
+
+        //        if (!query.Any())
+        //        {
+        //            MessageBox.Show("Please enter a valid Customer ID", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        }
+        //        else
+        //        {
+        //            foreach (var items in query)
+        //            {
+        //                invoiceTextBoxFirstName.Text = items.FirstName;
+        //                invoiceTextBoxLastName.Text = items.LastName;
+        //                invoiceTextBoxPhone.Text = items.PhoneNumber.ToString();
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Please enter a valid Customer ID", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
 
 #endregion
 
@@ -377,9 +390,8 @@ namespace formApp
 
                 id = (int)cmdIns.ExecuteScalar();
                 conn.Close();
-                // todo: make sql return a customer ID
+                
             }
-
             return id;
         }
 
@@ -429,5 +441,7 @@ namespace formApp
         }
 
         #endregion
+
+        
     }
 }
