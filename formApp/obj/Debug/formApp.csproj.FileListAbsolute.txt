@@ -36,3 +36,15 @@ C:\Users\Jimmy\Desktop\simple-invoice-app\formApp\bin\Debug\formApp.exe
 C:\Users\Jimmy\Desktop\simple-invoice-app\formApp\bin\Debug\formApp.pdb
 C:\Users\Jimmy\Desktop\simple-invoice-app\formApp\bin\Debug\itextsharp.dll
 C:\Users\Jimmy\Desktop\simple-invoice-app\formApp\bin\Debug\itextsharp.xml
+C:\Users\I851502\Desktop\simple-invoice-app\formApp\bin\Debug\formApp.exe.config
+C:\Users\I851502\Desktop\simple-invoice-app\formApp\obj\Debug\formApp.exe
+C:\Users\I851502\Desktop\simple-invoice-app\formApp\obj\Debug\formApp.pdb
+C:\Users\I851502\Desktop\simple-invoice-app\formApp\bin\Debug\formApp.exe
+C:\Users\I851502\Desktop\simple-invoice-app\formApp\bin\Debug\formApp.pdb
+C:\Users\I851502\Desktop\simple-invoice-app\formApp\bin\Debug\itextsharp.dll
+C:\Users\I851502\Desktop\simple-invoice-app\formApp\bin\Debug\itextsharp.xml
+C:\Users\I851502\Desktop\simple-invoice-app\formApp\obj\Debug\formApp.csprojResolveAssemblyReference.cache
+C:\Users\I851502\Desktop\simple-invoice-app\formApp\obj\Debug\formApp.addServiceDialog.resources
+C:\Users\I851502\Desktop\simple-invoice-app\formApp\obj\Debug\formApp.InvoiceApp.resources
+C:\Users\I851502\Desktop\simple-invoice-app\formApp\obj\Debug\formApp.Properties.Resources.resources
+C:\Users\I851502\Desktop\simple-invoice-app\formApp\obj\Debug\formApp.csproj.GenerateResource.Cache

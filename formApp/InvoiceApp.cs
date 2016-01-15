@@ -265,7 +265,43 @@ namespace formApp
         //    }
         //}
 
-#endregion
+        #endregion
+
+        #region Other Events
+
+        private void InvoiceTextBoxCustomerId_TextChanged(object sender, EventArgs e)
+        {
+            if (String.IsNullOrWhiteSpace(InvoiceTextBoxCustomerId.Text))
+                createCustomerGroupBox.Enabled = true;
+            else
+                createCustomerGroupBox.Enabled = false;
+        }
+
+        private void invoiceTextBoxFirstName_TextChanged(object sender, EventArgs e)
+        {
+            if (String.IsNullOrWhiteSpace(invoiceTextBoxFirstName.Text) && String.IsNullOrWhiteSpace(invoiceTextBoxLastName.Text) && String.IsNullOrWhiteSpace(invoiceTextBoxPhone.Text))
+                selectFromDirectoryGroupBox.Enabled = true;
+            else
+                selectFromDirectoryGroupBox.Enabled = false;
+        }
+
+        private void invoiceTextBoxLastName_TextChanged(object sender, EventArgs e)
+        {
+            if (String.IsNullOrWhiteSpace(invoiceTextBoxFirstName.Text) && String.IsNullOrWhiteSpace(invoiceTextBoxLastName.Text) && String.IsNullOrWhiteSpace(invoiceTextBoxPhone.Text))
+                selectFromDirectoryGroupBox.Enabled = true;
+            else
+                selectFromDirectoryGroupBox.Enabled = false;
+        }
+
+        private void invoiceTextBoxPhone_TextChanged(object sender, EventArgs e)
+        {
+            if (String.IsNullOrWhiteSpace(invoiceTextBoxFirstName.Text) && String.IsNullOrWhiteSpace(invoiceTextBoxLastName.Text) && String.IsNullOrWhiteSpace(invoiceTextBoxPhone.Text))
+                selectFromDirectoryGroupBox.Enabled = true;
+            else
+                selectFromDirectoryGroupBox.Enabled = false;
+        }
+
+        #endregion
 
         #region SQL methods
 
@@ -440,8 +476,8 @@ namespace formApp
             calcSubtotal();
         }
 
-        #endregion
 
+        #endregion
         
     }
 }
