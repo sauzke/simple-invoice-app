@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using iTextSharp.text;
 using System.Linq;
@@ -233,6 +229,14 @@ namespace formApp
                 invoiceTextBoxFirstName.Text = customerDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString();
                 invoiceTextBoxLastName.Text = customerDataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
                 invoiceTextBoxPhone.Text = customerDataGridView.Rows[e.RowIndex].Cells[3].Value.ToString();
+            }
+        }
+
+        private void invoiceDataGridView_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if(e.RowIndex != -1)
+            {
+                // insert data from database
             }
         }
 

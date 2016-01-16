@@ -246,6 +246,7 @@
             this.invoiceDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.invoiceDataGridView.Size = new System.Drawing.Size(459, 515);
             this.invoiceDataGridView.TabIndex = 0;
+            this.invoiceDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.invoiceDataGridView_CellMouseDoubleClick);
             // 
             // invoiceIdDataGridViewTextBoxColumn
             // 
